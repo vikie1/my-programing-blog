@@ -1,14 +1,44 @@
 import { css } from "@emotion/react";
+import { graphql, useStaticQuery } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import background from "./software-development.jpg";
 
 export const LandingPage = () => {
+  const getSiteUtils = useStaticQuery(
+    graphql`
+      query Images {
+        java: file(relativePath: { eq: "java-transparent.png" }) {
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 100, height: 200)
+          }
+        }
+        javaScript: file(relativePath: { eq: "javascript-transparent.png" }) {
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 200, height: 200)
+          }
+        }
+        spring: file(relativePath: { eq: "spring-transparent.png" }) {
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 280, height: 200)
+          }
+        }
+        react: file(relativePath: { eq: "react-transparent.png" }) {
+            childImageSharp {
+              gatsbyImageData(layout: FIXED, width: 207, height: 200)
+            }
+          }
+      }
+    `
+  );
   return (
     <div
       css={css`
+        background-color: grey;
         background-image: url(${background});
         background-attachment: fixed;
         background-size: cover;
+        background-blend-mode: color-burn;
       `}
     >
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,8 +60,8 @@ export const LandingPage = () => {
             css={css`
               padding-top: 0%;
               margin-top: -7rem;
-              padding-left: 15%;
-              padding-right: 15%;
+              padding-left: 30%;
+              padding-right: 30%;
               text-align: center;
               font-family: "Cabin Condensed", sans-serif;
               font-size: 4ch;
@@ -39,7 +69,7 @@ export const LandingPage = () => {
               color: white;
             `}
           >
-            Improve your coding skills
+            Improve your coding skills with our courses and articles
           </h1>
         </div>
         <div
@@ -47,7 +77,6 @@ export const LandingPage = () => {
             padding-left: 25%;
             padding-right: 25%;
             text-align: center;
-            margin-top: -3rem;
           `}
         >
           <p
@@ -78,6 +107,32 @@ export const LandingPage = () => {
             Get Started
           </a>
         </div>
+      </div>
+      <div
+        css={css`
+          background-color: blue;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 5px 0;
+        `}
+      >
+        <GatsbyImage
+          image={getImage(getSiteUtils.java)}
+          alt="A transparent java logo"
+        />
+        <GatsbyImage
+          image={getImage(getSiteUtils.javaScript)}
+          alt="A transparent javascript logo"
+        />
+        <GatsbyImage
+          image={getImage(getSiteUtils.spring)}
+          alt="A transparent spring logo"
+        />
+        <GatsbyImage
+          image={getImage(getSiteUtils.react)}
+          alt="A transparent react logo"
+        />
       </div>
     </div>
   );
