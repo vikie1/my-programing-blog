@@ -92,12 +92,13 @@ export const Header = ({ pageTitle }) => {
 };
 
 export const MenuItems = ({ display, displaySM }) => {
-  const styles = {
-    link: {
-      textDecoration: "none",
-      color: "grey",
-    },
-  };
+  const hoverUnderline = css`
+    text-decoration: none;
+    color: grey;
+    :hover {
+      text-decoration: underline;
+    }
+  `;
   return (
     <ul
       css={css`
@@ -112,22 +113,22 @@ export const MenuItems = ({ display, displaySM }) => {
       `}
     >
       <li>
-        <Link to="/" style={styles.link}>
+        <Link to="/" css={hoverUnderline}>
           Home
         </Link>
       </li>
       <li>
-        <Link to="/courses" style={styles.link}>
+        <Link to="/courses" css={hoverUnderline}>
           Courses
         </Link>
       </li>
       <li>
-        <Link to="/articles" style={styles.link}>
+        <Link to="/articles" css={hoverUnderline}>
           Articles
         </Link>
       </li>
       <li>
-        <Link to="/about" style={styles.link}>
+        <Link to="/about" css={hoverUnderline}>
           About
         </Link>
       </li>
