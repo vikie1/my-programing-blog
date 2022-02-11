@@ -4,7 +4,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import background from "./software-development.jpg";
 
-export const LandingPage = () => {
+export const LandingPage = ({children}) => {
   const getSiteUtils = useStaticQuery(
     graphql`
       query Images {
@@ -24,10 +24,10 @@ export const LandingPage = () => {
           }
         }
         react: file(relativePath: { eq: "react-transparent.png" }) {
-            childImageSharp {
-              gatsbyImageData(layout: FIXED, width: 207, height: 200)
-            }
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 207, height: 200)
           }
+        }
       }
     `
   );
@@ -39,6 +39,7 @@ export const LandingPage = () => {
         background-attachment: fixed;
         background-size: cover;
         background-blend-mode: color-burn;
+        padding: 0%;
       `}
     >
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -134,6 +135,7 @@ export const LandingPage = () => {
           alt="A transparent react logo"
         />
       </div>
+      <div>{children}</div>
     </div>
   );
 };
