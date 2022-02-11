@@ -8,24 +8,24 @@ export const LandingPage = ({children}) => {
   const getSiteUtils = useStaticQuery(
     graphql`
       query Images {
-        java: file(relativePath: { eq: "java-transparent.png" }) {
+        java: file(relativePath: { eq: "java-alt.png" }) {
           childImageSharp {
-            gatsbyImageData(layout: FIXED, width: 100, height: 200)
+            gatsbyImageData(layout: FIXED, width: 80, height: 100)
           }
         }
         javaScript: file(relativePath: { eq: "javascript-transparent.png" }) {
           childImageSharp {
-            gatsbyImageData(layout: FIXED, width: 200, height: 200)
+            gatsbyImageData(layout: FIXED, width: 100, height: 100)
           }
         }
         spring: file(relativePath: { eq: "spring-transparent.png" }) {
           childImageSharp {
-            gatsbyImageData(layout: FIXED, width: 280, height: 200)
+            gatsbyImageData(layout: FIXED, width: 140, height: 100)
           }
         }
         react: file(relativePath: { eq: "react-transparent.png" }) {
           childImageSharp {
-            gatsbyImageData(layout: FIXED, width: 207, height: 200)
+            gatsbyImageData(layout: FIXED, width: 103, height: 100)
           }
         }
       }
@@ -111,13 +111,16 @@ export const LandingPage = ({children}) => {
       </div>
       <div
         css={css`
-          background-color: blue;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 5px 0;
+          background-color: darkcyan;
+          padding: 40px 0;
         `}
       >
+        <div css={css`
+        margin: 0 20%;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+        `}>
         <GatsbyImage
           image={getImage(getSiteUtils.java)}
           alt="A transparent java logo"
@@ -127,13 +130,14 @@ export const LandingPage = ({children}) => {
           alt="A transparent javascript logo"
         />
         <GatsbyImage
-          image={getImage(getSiteUtils.spring)}
-          alt="A transparent spring logo"
-        />
-        <GatsbyImage
           image={getImage(getSiteUtils.react)}
           alt="A transparent react logo"
         />
+        <GatsbyImage
+          image={getImage(getSiteUtils.spring)}
+          alt="A transparent spring logo"
+        />
+        </div>
       </div>
       <div>{children}</div>
     </div>
