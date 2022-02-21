@@ -1,5 +1,6 @@
 const { getUrl } = require("./src/res/urls-ES");
 const fetch = require(`node-fetch`);
+const { createRemoteFileNode } = require("gatsby-source-filesystem")
 
 exports.sourceNodes = async ({
   actions: { createNode },
@@ -9,17 +10,6 @@ exports.sourceNodes = async ({
   const result = await fetch(getUrl("blog"));
   const resultData = await result.json();
   // create node for build time data example in the docs
-  // createNode({
-  //   // nameWithOwner and url are arbitrary fields from the data
-  //   content: resultData.blog,
-  //   // required fields
-  //   id: `test-blog-data`,
-  //   parent: null,
-  //   internal: {
-  //     type: `Blog`,
-  //     contentDigest: createContentDigest(resultData),
-  //   },
-  // })
   resultData.blog.map((blog) => {
     createNode({
       // nameWithOwner and url are arbitrary fields from the data
@@ -31,7 +21,6 @@ exports.sourceNodes = async ({
       topics: blog.topic,
       content: blog.fullArticle,
       // required fields
-      //id: `test-blog-data`,
       parent: null,
       internal: {
         type: `Blog`,
