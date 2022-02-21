@@ -48,7 +48,6 @@ const CoursesPage = () => {
             font-size: 3.05733em;
             line-height: 1;
           `}
-          role="button"
         >
           Start Learning
         </h1>
