@@ -1,10 +1,10 @@
 const getUrl = (name) => {
     const pbVictor = "https://pbvictor.herokuapp.com/api";
     const pbVictorSubUrls = {
-      contact: "/contact",
-      blog: "/blog",
+      contact: pbVictor + "/contact",
+      blog: pbVictor + "/blog",
+      blogAPI: pbVictor + "/api/lfv/blog"
     };
-    const response = pbVictor + pbVictorSubUrls[name];
-    return response;
+    return pbVictorSubUrls[name];
 };
 module.exports.getUrl = getUrl;

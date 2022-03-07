@@ -15,7 +15,6 @@ export const ContactForm = () => {
   const url = useUrl("contact");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(url);
     const data = { name, email, message };
     fetch(url, {
       method: "POST",
