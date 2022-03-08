@@ -7,18 +7,11 @@ import { compileMDXFunction, useMDXFunction } from "../../lib/mdx";
 const BlogPost = ({ data }) => {
   const mdxContents = compileMDXFunction(data.blog.content);
   const MDXContent = useMDXFunction(mdxContents.value);
-  const centerBlogImages = css`
-    aside {
-      display: flex;
-      justify-content: center;
-    }
-  `;
   return (
     <div className="">
       <Header pageTitle={data.blog.name} />
       <div
-        css={[
-          centerBlogImages,
+        css={
           css`
             width: 90%;
             @media (min-width: 640px) {
@@ -28,13 +21,11 @@ const BlogPost = ({ data }) => {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
               Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
               sans-serif;
-          `,
-        ]}
+          `
+        }
       >
         <h1>{data.blog.name}</h1>
-        <aside>
-          <img src={data.blog.img} alt="Blogs hero" loading="lazy" />
-        </aside>
+        <img src={data.blog.img} css={css`max-width: 100%;`} alt="Blogs hero" loading="lazy" />
         <MDXContent />
       </div>
     </div>
@@ -47,7 +38,6 @@ export const query = graphql`
     blog(id: { eq: $id }) {
       img
       name
-      topics
       content
     }
   }

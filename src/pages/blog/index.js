@@ -12,7 +12,10 @@ const ArticlesPage = (props) => {
           img
           id
           name
-          topics
+          topics{
+            id
+            name
+          }
         }
       }
       allSitePage {
@@ -112,14 +115,14 @@ const ArticlesPage = (props) => {
                       `}
                     >
                       topics:
-                      {blog.topics.split(",").map((topic, index) => (
+                      {blog.topics.map((topic, index) => (
                         <span
                           key={index}
                           css={css`
                             padding: 5px;
                           `}
                         >
-                          {topic}
+                          {topic.name}
                         </span>
                       ))}
                     </div>

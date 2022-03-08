@@ -123,7 +123,7 @@ export const MenuItems = ({ display, displaySM }) => {
         </Link>
       </li>
       <li>
-        <Link to="/articles" css={hoverUnderline}>
+        <Link to="/blog" css={hoverUnderline}>
           Blog
         </Link>
       </li>

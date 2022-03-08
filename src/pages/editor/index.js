@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { convertToRaw, EditorState } from "draft-js";
 import React, { useState } from "react";
-import { compileMDXFunction, useMDXFunction } from "../../lib/mdx";
 import draftToHtml from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -21,13 +20,8 @@ const EditorPage = (props) => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const MDXContent = useMDXFunction(
-    compileMDXFunction(
-      draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    ).value
-  );
   const handleFileChange = (e) => {
-    const cloudinaryUploadAPI = protectedVars("cloudinary");
+    const cloudinaryUploadAPI = protectedVars("cloudinaryImage");
     const preset = protectedVars("preset");
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
@@ -58,7 +52,48 @@ const EditorPage = (props) => {
         }
       });
   };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const date = new Date(Date.now()).toISOString().split("T")[0];
+    const topicsArray = topics.split(/\s*,\s*/);
+    const data = {
+      name,
+      imgURL: imgUrl,
+      description,
+      publishDate: date,
+      topics: topicsArray,
+      post: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+    };
+    console.log(JSON.stringify(data))
+    setIsloading(true);
+    fetch(url, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+       },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) return;
+        throw new Error("There was a problem saving the blog");
+      })
+      .then((res) => {
+        setIsloading(false);
+        setEditorState(() => EditorState.createEmpty());
+        setDescription("");
+        setImgUrl("");
+        setName("");
+        setTopics("");
+      })
+      .catch((error) => {
+        setIsloading(false);
+        if (error.name === "AbortError") {
+          console.log("aborted");
+        } else {
+          alert(error.message);
+        }
+      });
+  };
   const button = css`
     text-decoration: none;
     /* width: 10%; */
@@ -103,90 +138,97 @@ const EditorPage = (props) => {
         <header>
           <h1>Convert great ideas to writings</h1>
         </header>
-        <div
-          css={css`
-            min-height: 65vh;
-          `}
-        >
-          <Editor
-            wrapperClassName={styles.wrapperClass}
-            editorClassName={styles.editorClass}
-            toolbarClassName={styles.toolbarClass}
-            editorState={editorState}
-            onEditorStateChange={setEditorState}
-          />
-        </div>
-        <div
-          css={css`
-            display: flex;
-            width: 50%;
-          `}
-        >
-          <input
-            type="text"
-            value={name}
-            css={[inputs]}
-            placeholder="Name *"
-            onChange={(e) => setName((prevName) => e.target.value)}
-          />
-          <input
-            type="email"
-            value={topics}
-            css={[
-              inputs,
-              css`
-                margin-left: 5px;
-              `,
-            ]}
-            placeholder="Topics *"
-            required
-            onChange={(e) => setTopics((prevTopics) => e.target.value)}
-          />
-          <div css={css`background-color: blue;`}>
-            <label htmlFor="fileInput">Blog preview image</label>
-            <input
-              onChange={(e) => handleFileChange(e)}
-              type="file"
-              accept="image/*"
-              id="fileInput"
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div
+            css={css`
+              min-height: 65vh;
+              color: black;
+              margin-bottom: 0.5rem;
+            `}
+          >
+            <Editor
+              wrapperClassName={styles.wrapperClass}
+              editorClassName={styles.editorClass}
+              toolbarClassName={styles.toolbarClass}
+              editorState={editorState}
+              onEditorStateChange={setEditorState}
             />
-            {isLoading ? <div>Uploading File</div> : null}
-            {error ? <div>{error}</div> : null}
           </div>
-        </div>
-        <div
-          css={css`
-            padding-right: 11px;
-            width: 50%;
-          `}
-        >
-          <textarea
-            name="description"
-            placeholder="Description *"
-            id=""
-            required
-            css={inputs}
-            cols="20"
-            rows="5"
-            value={description}
-            onChange={(e) =>
-              setDescription((prevDescription) => e.target.value)
-            }
-          ></textarea>
-        </div>
-        <div
-          css={css`
-            bottom: 10%;
-          `}
-        >
-          {isloading ? (
-            <button disabled css={button}>
-              Sending ...
-            </button>
-          ) : (
-            <button css={button}>Submit</button>
-          )}
-        </div>
+          <div
+            css={css`
+              display: flex;
+            `}
+          >
+            <input
+              type="text"
+              value={name}
+              css={[inputs]}
+              placeholder="Name * (Its recommended to use blog title)"
+              onChange={(e) => setName((prevName) => e.target.value)}
+            />
+            <input
+              type="text"
+              value={topics}
+              css={[
+                inputs,
+                css`
+                  margin-left: 5px;
+                `,
+              ]}
+              placeholder="Topics *(Separate multiple with comma)"
+              required
+              onChange={(e) => setTopics((prevTopics) => e.target.value)}
+            />
+            <div
+              css={css`
+                background-color: blue;
+              `}
+            >
+              <label htmlFor="fileInput">Blog preview image</label>
+              <input
+                onChange={(e) => handleFileChange(e)}
+                type="file"
+                accept="image/*"
+                id="fileInput"
+              />
+              {isLoading ? <div>Uploading File</div> : null}
+              {error ? <div>{error}</div> : null}
+            </div>
+          </div>
+          <div
+            css={css`
+              padding-right: 11px;
+              width: 50%;
+            `}
+          >
+            <textarea
+              name="description"
+              placeholder="Description *"
+              id=""
+              required
+              css={inputs}
+              cols="20"
+              rows="5"
+              value={description}
+              onChange={(e) =>
+                setDescription((prevDescription) => e.target.value)
+              }
+            ></textarea>
+          </div>
+          <div
+            css={css`
+              bottom: 10%;
+            `}
+          >
+            {isloading ? (
+              <button disabled css={button}>
+                Sending ...
+              </button>
+            ) : (
+              <button css={button}>Submit</button>
+            )}
+          </div>
+        </form>
       </div>
     </body>
   );
