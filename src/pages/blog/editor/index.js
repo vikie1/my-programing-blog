@@ -5,8 +5,8 @@ import draftToHtml from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import * as styles from "./index.module.css";
-import { useUrl } from "../../res/urls";
-import { protectedVars } from "../../res/protectedVars";
+import { useUrl } from "../../../res/urls";
+import { protectedVars } from "../../../res/protectedVars";
 
 const EditorPage = (props) => {
   const [imgUrl, setImgUrl] = useState(null);
@@ -96,7 +96,6 @@ const EditorPage = (props) => {
   };
   const button = css`
     text-decoration: none;
-    /* width: 10%; */
     color: white;
     background-color: #204dcc;
     padding: 10px;
@@ -163,7 +162,7 @@ const EditorPage = (props) => {
               type="text"
               value={name}
               css={[inputs]}
-              placeholder="Name * (Its recommended to use blog title)"
+              placeholder="Name * (Use blog title here)"
               onChange={(e) => setName((prevName) => e.target.value)}
             />
             <input
@@ -175,7 +174,7 @@ const EditorPage = (props) => {
                   margin-left: 5px;
                 `,
               ]}
-              placeholder="Topics *(Separate multiple with comma)"
+              placeholder="Topics *(Separate with comma e.g java, threads, React)"
               required
               onChange={(e) => setTopics((prevTopics) => e.target.value)}
             />

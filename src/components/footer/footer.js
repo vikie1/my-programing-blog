@@ -51,7 +51,7 @@ export const Footer = () => {
           >
             Lets connect
           </p>
-          <a css={linkContainers} href="https://twitter.com/_victormwangi" target="_blank" >
+          <a css={linkContainers} href="https://twitter.com/_victormwangi" rel="noreferrer" target="_blank" >
             <StaticImage
               src="tl.svg"
               alt="twitter icon"
@@ -60,7 +60,7 @@ export const Footer = () => {
             />
             <span css={socialLinks}>Twitter: @_victormwangi</span>
           </a>
-          <a css={linkContainers} href="https://www.polywork.com/vmwangi" target="_blank">
+          <a css={linkContainers} href="https://www.polywork.com/vmwangi" rel="noreferrer" target="_blank">
             <StaticImage
               src="polywork.svg"
               alt="polywork icon"
@@ -121,6 +121,7 @@ export const Footer = () => {
             color: blue;
           `}
           target="_blank"
+          rel="noreferrer"
         >
           Victor Mwangi
         </a>
