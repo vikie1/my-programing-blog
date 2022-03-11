@@ -67,6 +67,7 @@ export const BlogCard = ({ blog, data }) => {
             >
               topics discussed:
               {blog.topics.map((topic, index) => (
+                <>{index>0 ? ',' : ''}
                 <span
                   key={index}
                   css={css`
@@ -75,6 +76,7 @@ export const BlogCard = ({ blog, data }) => {
                 >
                   {topic.name}
                 </span>
+                </>
               ))}
             </div>
           </div>

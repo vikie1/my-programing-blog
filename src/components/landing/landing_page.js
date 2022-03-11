@@ -86,10 +86,10 @@ export const LandingPage = ({children}) => {
               padding-bottom: 2rem;
             `}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-            doloremque facilis voluptate voluptates quas, ipsum quia et,
-            deserunt laboriosam in corporis beatae nulla totam aliquam
-            repudiandae, amet minus obcaecati recusandae.
+            This website contains courses that will get you from zero to a
+             full stack developer. There are also blogs that explains concepts
+            that keeps you up to date and broadens your knowledge as a full stack
+            web developer.
           </p>
           <a
             href=""

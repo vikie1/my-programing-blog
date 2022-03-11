@@ -1,16 +1,17 @@
 const { getUrl } = require("./src/res/urls-ES");
 const fetch = require(`node-fetch`);
-const { createRemoteFileNode } = require("gatsby-source-filesystem")
 
 exports.sourceNodes = async ({
   actions: { createNode },
   createContentDigest,
 }) => {
   // get data from API at build time
-  const result = await fetch(getUrl("blogAPI"));
-  const resultData = await result.json();
-  // create node for build time data example in the docs
-  resultData.blog.map((blog) => {
+  const blog = await fetch(getUrl("blogAPI"));
+  const courses = await fetch(getUrl("courseAPI"));
+  const blogData = await blog.json();
+  const coursesData = await courses.json();
+  // create node for build time data
+  blogData.blog.map((blog) => {
     createNode({
       name: blog.name,
       id: "" + blog.id,
@@ -23,8 +24,23 @@ exports.sourceNodes = async ({
       parent: null,
       internal: {
         type: `Blog`,
-        contentDigest: createContentDigest(resultData),
+        contentDigest: createContentDigest(blogData),
       },
     });
   });
+  coursesData.courses.map(course => {
+    createNode({
+      id: "" + course.id,
+      name: course.name,
+      desc: course.description,
+      img: course.imgURL,
+      content: course.courses,
+      // required fields
+      parent: null,
+      internal: {
+        type: `Courses`,
+        contentDigest: createContentDigest(coursesData),
+      },
+    })
+  })
 };

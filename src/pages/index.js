@@ -20,10 +20,8 @@ const IndexPage = () => {
             background-color: white;
           `}
         >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-            culpa repellat sapiente rerum temporibus quidem cum necessitatibus
-            a. Facere cum sed ex sint! Architecto optio molestiae, vero aperiam
-            quo natus?
+          *This website is still under active development <br/>          
+            //ToDo: Fill this area
         </div>
       </LandingPage>
       <Footer/>

@@ -101,11 +101,7 @@ export const ContactForm = () => {
             onChange={(e) => setEmail((prevEmail) => e.target.value)}
           />
         </div>
-        <div
-          css={css`
-            padding-right: 11px;
-          `}
-        >
+        <div>
           <textarea
             name="message"
             placeholder="Message *"

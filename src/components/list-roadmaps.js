@@ -1,9 +1,9 @@
 import React from "react";
 
-export const ListCourses = ({data}) => {
+export const ListRoadMaps = (props) => {
     return (
        <div className="-view">
-           Courses coming soon
+           Roadmaps coming soon
        </div>
     );
 }
