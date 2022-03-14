@@ -23,9 +23,13 @@ export const Footer = () => {
     >
       <div
         css={css`
-          height: 300px;
+          padding-bottom: 3rem;
           display: grid;
-          grid-template-columns: 1.5fr 2fr;
+          @media (min-width: 640px) {
+            padding-bottom: 0;
+            grid-template-columns: 1.5fr 2fr;
+            min-height: 300px;
+          }
         `}
       >
         <head>
@@ -39,6 +43,10 @@ export const Footer = () => {
         <div
           css={css`
             padding-left: 25%;
+            @media (max-width: 640px) {
+              padding-left: 0;
+              place-self: center;
+            }
           `}
         >
           <p
@@ -51,7 +59,12 @@ export const Footer = () => {
           >
             Lets connect
           </p>
-          <a css={linkContainers} href="https://twitter.com/_victormwangi" rel="noreferrer" target="_blank" >
+          <a
+            css={linkContainers}
+            href="https://twitter.com/_victormwangi"
+            rel="noreferrer"
+            target="_blank"
+          >
             <StaticImage
               src="tl.svg"
               alt="twitter icon"
@@ -60,7 +73,12 @@ export const Footer = () => {
             />
             <span css={socialLinks}>Twitter: @_victormwangi</span>
           </a>
-          <a css={linkContainers} href="https://www.polywork.com/vmwangi" rel="noreferrer" target="_blank">
+          <a
+            css={linkContainers}
+            href="https://www.polywork.com/vmwangi"
+            rel="noreferrer"
+            target="_blank"
+          >
             <StaticImage
               src="polywork.svg"
               alt="polywork icon"
@@ -82,6 +100,10 @@ export const Footer = () => {
         <div
           css={css`
             padding: 0 20%;
+            @media (max-width: 640px) {
+              padding: 0;
+              place-self: center;
+            }
           `}
         >
           <p
