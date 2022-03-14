@@ -51,10 +51,10 @@ export const LandingPage = ({ children }) => {
       <div
         css={css`
           @media (min-width: 640px) {
-          height: 85vh;
-          flex-direction: column;
-          display: flex;
-          justify-content: center;
+            height: 85vh;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
           }
         `}
       >
@@ -69,10 +69,10 @@ export const LandingPage = ({ children }) => {
               font-weight: bolder;
               color: white;
               @media (min-width: 640px) {
-              margin-top: -7rem;
-              padding-left: 30%;
-              padding-right: 30%;
-              font-size: 4ch;
+                margin-top: -7rem;
+                padding-left: 30%;
+                padding-right: 30%;
+                font-size: 4ch;
               }
             `}
           >
@@ -81,15 +81,15 @@ export const LandingPage = ({ children }) => {
         </div>
         <div
           css={css`
-          text-align: center;
-          padding: 0 5%;
-          @media (min-width: 640px) {
-            padding-left: 25%;
-            padding-right: 25%;
-          }
-              @media (max-width: 640px) {
+            text-align: center;
+            padding: 0 5%;
+            @media (min-width: 640px) {
+              padding-left: 25%;
+              padding-right: 25%;
+            }
+            @media (max-width: 640px) {
               padding-bottom: 2rem;
-              }
+            }
           `}
         >
           <p
@@ -133,7 +133,7 @@ export const LandingPage = ({ children }) => {
             align-items: center;
             justify-content: space-evenly;
             @media (min-width: 640px) {
-            margin: 0 20%;
+              margin: 0 20%;
             }
           `}
         >
@@ -144,7 +144,11 @@ export const LandingPage = ({ children }) => {
           <GatsbyImage
             image={getImage(getSiteUtils.javaScript)}
             alt="A transparent javascript logo"
-            css={css`@media (max-width: 440px) {display: none;}`}
+            css={css`
+              @media (max-width: 440px) {
+                display: none;
+              }
+            `}
           />
           <GatsbyImage
             image={getImage(getSiteUtils.react)}

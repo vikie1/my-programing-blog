@@ -25,9 +25,12 @@ const AboutPage = () => {
       <Header pageTitle="About Me" />
       <main
         css={css`
-          width: 70%;
+          width: 90%;
           margin: 0 auto;
-          font-family: 'Dosis', sans-serif;
+          @media (min-width: 1024px) {
+            width: 70%;
+          }
+          font-family: "Dosis", sans-serif;
         `}
       >
         <div>
@@ -49,7 +52,8 @@ const AboutPage = () => {
               <li>A Spring boot backend</li>
               <li>A React front end</li>
               <li>
-                And other items in my stack e.g Thymeleaf, gatsby, TailwindCSS etc
+                And other items in my stack e.g Thymeleaf, gatsby, TailwindCSS
+                etc
               </li>
             </ul>
           </p>
@@ -78,8 +82,10 @@ const AboutPage = () => {
             </h3>
             <div
               css={css`
-                display: flex;
-                justify-content: space-between;
+                @media (min-width: 768px) {
+                  display: flex;
+                  justify-content: space-between;
+                }
               `}
             >
               <div>
@@ -165,8 +171,8 @@ const AboutPage = () => {
                 qualify for an engineering course at{" "}
                 <a href="https://www.mku.ac.ke/">Mount Kenya University</a>. I
                 completed a Bachelor of Technology in Computer and Electronics
-                Systems on Dec 17, 2021. I should probably teach some
-                electronics here but I don't want to scare you with mathematics,
+                Systems on Dec 17, 2021. I should probably include lessons on 
+                electronics here but I don't want to scare anyone with mathematics 😗,
                 'yet'.
               </p>
             </div>
@@ -186,11 +192,10 @@ const AboutPage = () => {
                 btw.
               </p>
               <p>
-                As a full stack developer, I studied HTML shortly after Java
-                with my friend{" "}
-                <a href="https://github.com/elvisAR-git">Elvis</a> helping out
-                with CSS. My first website had a servlet backend and a JSP front
-                end but after tasting Spring Boot magic, I didn't look back.
+                As a full stack developer, I studied HTML shortly after Java and
+                later added JavaScript to my arsenal. My first website had a Java
+                servlets backend and JSPs at the front end but after tasting Spring
+                Boot magic, I didn't look back.
               </p>
               <p>
                 I started this website so you or someone else wouldn't have to
