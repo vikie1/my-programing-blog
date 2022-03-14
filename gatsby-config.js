@@ -3,7 +3,7 @@ const path = require(`path`)
 module.exports = {
   siteMetadata: {
     title: `Learn from Victor`,
-    siteUrl: `https://www.yourdomain.tld`,
+	siteUrl: `https://learnfromvictor.netlify.app`,
   },
   plugins: [
     "gatsby-plugin-emotion",
@@ -36,5 +36,16 @@ module.exports = {
         path: path.join(__dirname, `src`, `images`),
       },
     },
+	{
+		resolve: `gatsby-plugin-google-analytics`,
+		options: { 
+			// The property ID; the tracking code won't be generated without it
+			trackingId: "UA-222833377-1",
+			// Defines where to place the tracking script - `true` in the head and `false` in the body
+			head: true,
+			// Setting this parameter is optional
+			anonymize: true
+		}
+	}
   ],
 };

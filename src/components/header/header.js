@@ -60,11 +60,13 @@ export const Header = ({ pageTitle }) => {
           css={css`
             display: flex;
             flex-direction: column;
+            align-items: center;
+            padding-right: 2rem;
             @media (min-width: 640px) {
               width: 45%;
               flex-direction: row;
-              align-items: center;
               justify-content: flex-end;
+              padding-right: 0;
             }
           `}
         >

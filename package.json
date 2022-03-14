@@ -25,6 +25,7 @@
     "draftjs-to-html": "^0.9.1",
     "gatsby": "^4.6.0",
     "gatsby-plugin-emotion": "^7.6.0",
+    "gatsby-plugin-google-analytics": "^4.9.0",
     "gatsby-plugin-image": "^2.6.0",
     "gatsby-plugin-manifest": "^4.6.0",
     "gatsby-plugin-mdx": "^3.7.1",
