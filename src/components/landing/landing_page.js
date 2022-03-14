@@ -50,24 +50,30 @@ export const LandingPage = ({ children }) => {
       />
       <div
         css={css`
+          @media (min-width: 640px) {
           height: 85vh;
-          display: flex;
           flex-direction: column;
+          display: flex;
           justify-content: center;
+          }
         `}
       >
         <div>
           <h1
             css={css`
               padding-top: 0%;
+              margin-top: 0rem;
+              text-align: center;
+              font-size: 3.7ch;
+              font-family: "Cabin Condensed", sans-serif;
+              font-weight: bolder;
+              color: white;
+              @media (min-width: 640px) {
               margin-top: -7rem;
               padding-left: 30%;
               padding-right: 30%;
-              text-align: center;
-              font-family: "Cabin Condensed", sans-serif;
               font-size: 4ch;
-              font-weight: bolder;
-              color: white;
+              }
             `}
           >
             Improve your coding skills with our courses and articles
@@ -75,9 +81,15 @@ export const LandingPage = ({ children }) => {
         </div>
         <div
           css={css`
+          text-align: center;
+          padding: 0 5%;
+          @media (min-width: 640px) {
             padding-left: 25%;
             padding-right: 25%;
-            text-align: center;
+          }
+              @media (max-width: 640px) {
+              padding-bottom: 2rem;
+              }
           `}
         >
           <p
@@ -117,10 +129,12 @@ export const LandingPage = ({ children }) => {
       >
         <div
           css={css`
-            margin: 0 20%;
             display: flex;
-            justify-content: space-evenly;
             align-items: center;
+            justify-content: space-evenly;
+            @media (min-width: 640px) {
+            margin: 0 20%;
+            }
           `}
         >
           <GatsbyImage
@@ -130,6 +144,7 @@ export const LandingPage = ({ children }) => {
           <GatsbyImage
             image={getImage(getSiteUtils.javaScript)}
             alt="A transparent javascript logo"
+            css={css`@media (max-width: 440px) {display: none;}`}
           />
           <GatsbyImage
             image={getImage(getSiteUtils.react)}
