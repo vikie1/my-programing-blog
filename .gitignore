@@ -3,3 +3,7 @@ node_modules/
 public
 #keys
 src/res/protectedVars.js
+package copy.json
+
+# Local Netlify folder
+.netlify

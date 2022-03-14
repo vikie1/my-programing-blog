@@ -4,11 +4,11 @@ import React from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
-import { compileMDXFunction, useMDXFunction } from "../../lib/mdx";
+// import { compileMDXFunction, useMDXFunction } from "../../lib/mdx";
 
 const BlogPost = ({ data }) => {
-  const mdxContents = compileMDXFunction(data.blog.content);
-  const MDXContent = useMDXFunction(mdxContents.value);
+  // const mdxContents = compileMDXFunction(data.blog.content);
+  // const MDXContent = useMDXFunction(mdxContents.value);
   return (
     <div>
       <Header pageTitle={data.blog.name} />
@@ -67,7 +67,8 @@ const BlogPost = ({ data }) => {
               }
             `}
           >
-            <MDXContent />
+            <div dangerouslySetInnerHTML={{ __html: data.blog.content }}></div>
+            {/* <MDXContent /> --This didn't work during gatsby build, using the above div before I figure out how to work with it. I am also not sure of its advantages to the above to spend somuch time on it */}
           </div>
         </div>
         <div
@@ -100,7 +101,8 @@ const BlogPost = ({ data }) => {
                   margin-right: 2rem;
                 `}
               >
-                {/*to negate this, currently needed only for layout */}{blog.id === data.blog.id && (
+                {/*to negate this, currently needed only for layout */}
+                {blog.id === data.blog.id && (
                   <BlogList blog={blog} data={data} />
                 )}
               </div>

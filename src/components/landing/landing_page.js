@@ -4,7 +4,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import background from "./software-development.jpg";
 
-export const LandingPage = ({children}) => {
+export const LandingPage = ({ children }) => {
   const getSiteUtils = useStaticQuery(
     graphql`
       query Images {
@@ -86,10 +86,10 @@ export const LandingPage = ({children}) => {
               padding-bottom: 2rem;
             `}
           >
-            This website contains courses that will get you from zero to a
-             full stack developer. There are also blogs that explains concepts
-            that keeps you up to date and broadens your knowledge as a full stack
-            web developer.
+            This website contains courses that will get you from zero to a full
+            stack developer. There are also great blogs that explains concepts ,
+            keeps you up to date and broadens your knowledge as a full stack web
+            developer.
           </p>
           <a
             href=""
@@ -115,28 +115,30 @@ export const LandingPage = ({children}) => {
           padding: 40px 0;
         `}
       >
-        <div css={css`
-        margin: 0 20%;
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-        `}>
-        <GatsbyImage
-          image={getImage(getSiteUtils.java)}
-          alt="A transparent java logo"
-        />
-        <GatsbyImage
-          image={getImage(getSiteUtils.javaScript)}
-          alt="A transparent javascript logo"
-        />
-        <GatsbyImage
-          image={getImage(getSiteUtils.react)}
-          alt="A transparent react logo"
-        />
-        <GatsbyImage
-          image={getImage(getSiteUtils.spring)}
-          alt="A transparent spring logo"
-        />
+        <div
+          css={css`
+            margin: 0 20%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+          `}
+        >
+          <GatsbyImage
+            image={getImage(getSiteUtils.java)}
+            alt="A transparent java logo"
+          />
+          <GatsbyImage
+            image={getImage(getSiteUtils.javaScript)}
+            alt="A transparent javascript logo"
+          />
+          <GatsbyImage
+            image={getImage(getSiteUtils.react)}
+            alt="A transparent react logo"
+          />
+          <GatsbyImage
+            image={getImage(getSiteUtils.spring)}
+            alt="A transparent spring logo"
+          />
         </div>
       </div>
       <div>{children}</div>

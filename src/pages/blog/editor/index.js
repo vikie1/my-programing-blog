@@ -2,13 +2,15 @@ import { css } from "@emotion/react";
 import { convertToRaw, EditorState } from "draft-js";
 import React, { useState } from "react";
 import draftToHtml from "draftjs-to-html";
-import { Editor } from "react-draft-wysiwyg";
+// import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
+import loadable from '@loadable/component'
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import * as styles from "./index.module.css";
 import { useUrl } from "../../../res/urls";
 import { protectedVars } from "../../../res/protectedVars";
 
 const EditorPage = (props) => {
+  const Editor = loadable(() => import('react-draft-wysiwyg').then(mod => mod.Editor));//fix for gatsby build
   const [imgUrl, setImgUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -64,13 +66,13 @@ const EditorPage = (props) => {
       topics: topicsArray,
       post: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     };
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
     setIsloading(true);
     fetch(url, {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
-       },
+      },
       body: JSON.stringify(data),
     })
       .then((response) => {
