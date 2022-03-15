@@ -62,6 +62,7 @@ export const Header = ({ pageTitle }) => {
             flex-direction: column;
             align-items: center;
             padding-right: 2rem;
+            justify-content: center;
             @media (min-width: 640px) {
               width: 45%;
               flex-direction: row;
