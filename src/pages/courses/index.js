@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import React, { useState } from "react";
-import { Header } from "../components/header/header";
-import { ListCourses } from "../components/list-courses";
-import { ListRoadMaps } from "../components/list-roadmaps";
+import { Header } from "../../components/header/header";
+import { ListCourses } from "../../components/list-courses";
+import { ListRoadMaps } from "../../components/list-roadmaps";
 
 const CoursesPage = () => {
   // switch between roadMaps and Courses

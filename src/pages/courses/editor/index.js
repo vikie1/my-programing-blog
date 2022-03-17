@@ -3,14 +3,16 @@ import { convertToRaw, EditorState } from "draft-js";
 import React, { useState } from "react";
 import draftToHtml from "draftjs-to-html";
 // import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
-import loadable from '@loadable/component'
+import loadable from "@loadable/component";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import * as styles from "./index.module.css";
 import { useUrl } from "../../../res/urls";
 import { protectedVars } from "../../../res/protectedVars";
 
 const EditorPage = (props) => {
-  const Editor = loadable(() => import('react-draft-wysiwyg').then(mod => mod.Editor));//fix for gatsby build
+  const Editor = loadable(() =>
+    import("react-draft-wysiwyg").then((mod) => mod.Editor)
+  ); //fix for gatsby build
   const [imgUrl, setImgUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -171,29 +173,37 @@ const EditorPage = (props) => {
               onChange={(e) => setName((prevName) => e.target.value)}
             />
             <input
-              type="text"
-              value={topics}
+              type="number"
+              value={chapter}
               css={[
                 inputs,
                 css`
                   margin-left: 5px;
                 `,
               ]}
-              placeholder="Topics *(Separate with comma e.g java, threads, React)"
-              required
-              onChange={(e) => setTopics((prevTopics) => e.target.value)}
-            />
-            <input
-              type="number"
-              value={chapter}
-              css={[inputs]}
               required
               placeholder="Chapter (must be a number) e.g 1, 1.1, 2"
               onChange={(e) => setChapter((prevChapter) => e.target.value)}
             />
+            
+          </div>
+          <div
+            css={css`
+              display: flex;
+            `}
+          >
+            <input
+              type="text"
+              css={[inputs]}
+              value={topics}
+              placeholder="Topics *(Separate with comma e.g java, threads, React)"
+              required
+              onChange={(e) => setTopics((prevTopics) => e.target.value)}
+            />
             <div
               css={css`
                 background-color: blue;
+                margin-left: 5px;
               `}
             >
               <label htmlFor="fileInput">Blog preview image</label>
