@@ -14,7 +14,7 @@ exports.sourceNodes = async ({
   blogData.blog.map((blog) => {
     createNode({
       name: blog.name,
-      id: "" + blog.id,
+      id: "b" + blog.id,
       img: blog.imgURL,
       desc: blog.description,
       topics: blog.topic,
@@ -28,23 +28,22 @@ exports.sourceNodes = async ({
       },
     });
   });
-  coursesData.courses.map(course => {
+  coursesData.courses.map((course) => {
     createNode({
-      id: "" + course.id,
+      id: "c" + course.courseId,
       name: course.name,
       desc: course.description,
       img: course.imgURL,
-      content: course.courses,
+      chapters: course.courses,
       // required fields
       parent: null,
       internal: {
-        type: `Courses`,
+        type: `Course`,
         contentDigest: createContentDigest(coursesData),
       },
-    })
-  })
+    });
+  });
 };
-
 //create pages for the Blogs
 // const path = require("path")
 // exports.createPages = async ({ graphql, actions, reporter }) => {
