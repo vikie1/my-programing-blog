@@ -1,9 +1,18 @@
 import { css } from "@emotion/react";
 import { graphql, Link } from "gatsby";
 import React from "react";
-import { Header } from "../../components/header/header";
+import { Header } from "../../../components/header/header";
 
 const Course = ({ data }) => {
+  const getBlogUrl = (id) => {
+    console.log(id)
+    const blogUrl = data.allSitePage.nodes.find((blog) => {
+      if (blog.pageContext.id) {
+        return blog.pageContext.id === "" + id;
+      }
+    });
+    return blogUrl.path;
+  };
     return (
        <div className="-view">
          <Header pageTitle={data.course.name} />
@@ -12,7 +21,7 @@ const Course = ({ data }) => {
          <p>{data.course.desc}</p>
          </div>
          {data.course.chapters.map(course => (
-           <Link to={"/"} key={course.id}>
+           <Link to={getBlogUrl("ch" + course.id)} key={course.id}>
            <ul>
              <li>{course.chapter}</li>
            </ul>
