@@ -17,6 +17,7 @@ const EditorPage = (props) => {
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const [name, setName] = useState(null);
+  const [chapterName, setChapterName] = useState(null);
   const [topics, setTopics] = useState(null);
   const [isloading, setIsloading] = useState(null);
   const [description, setDescription] = useState(null);
@@ -67,10 +68,10 @@ const EditorPage = (props) => {
       description,
       postDate: date,
       chapter,
+      chapterName,
       topics: topicsArray,
       content: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     };
-    console.log(JSON.stringify(data));
     setIsloading(true);
     fetch(url, {
       method: "POST",
@@ -90,6 +91,7 @@ const EditorPage = (props) => {
         setImgUrl("");
         setName("");
         setTopics("");
+        setChapterName("");
       })
       .catch((error) => {
         setIsloading(false);
@@ -173,6 +175,34 @@ const EditorPage = (props) => {
               onChange={(e) => setName((prevName) => e.target.value)}
             />
             <input
+              type="text"
+              css={[
+                inputs,
+                css`
+                  margin-left: 5px;
+                  width: 20%;
+                `,
+              ]}
+              value={topics}
+              placeholder="Topics *(Separate with comma e.g java, threads, React)"
+              required
+              onChange={(e) => setTopics((prevTopics) => e.target.value)}
+            />
+          </div>
+          <div
+            css={css`
+              display: flex;
+            `}
+          >
+            <input
+              type="text"
+              value={chapterName}
+              css={[inputs]}
+              required
+              placeholder="Name of chapter * (Use chapter title here)"
+              onChange={(e) => setChapterName((prevName) => e.target.value)}
+            />
+            <input
               type="number"
               value={chapter}
               css={[
@@ -182,23 +212,8 @@ const EditorPage = (props) => {
                 `,
               ]}
               required
-              placeholder="Chapter (must be a number) e.g 1, 1.1, 2"
+              placeholder="Chapter number e.g 1, 1.1, 2"
               onChange={(e) => setChapter((prevChapter) => e.target.value)}
-            />
-            
-          </div>
-          <div
-            css={css`
-              display: flex;
-            `}
-          >
-            <input
-              type="text"
-              css={[inputs]}
-              value={topics}
-              placeholder="Topics *(Separate with comma e.g java, threads, React)"
-              required
-              onChange={(e) => setTopics((prevTopics) => e.target.value)}
             />
             <div
               css={css`
