@@ -78,7 +78,16 @@ const Chapters = (props) => {
             <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
           </div>
           <div>
-            {data.next && <Link to={navigate(data.next)}>Previous</Link>}
+            {data.next && (
+              <Link
+                to={navigate(data.next)}
+                css={css`
+                  margin-right: 5px;
+                `}
+              >
+                Previous
+              </Link>
+            )}
             {data.prev && <Link to={navigate(data.prev)}>Next</Link>}
           </div>
         </div>
