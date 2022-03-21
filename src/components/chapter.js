@@ -1,10 +1,29 @@
 import { css } from "@emotion/react";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
 
 const Chapters = (props) => {
   const data = props.pageContext.data;
+  const pages = useStaticQuery(graphql`
+    query {
+      allSitePage {
+        nodes {
+          pageContext
+          path
+        }
+      }
+    }
+  `);
+  const navigate = (id) => {
+    const resource = pages.allSitePage.nodes.find((page) => {
+      if (page.pageContext.id) {
+        return page.pageContext.id === "" + id;
+      }
+    });
+    return resource.path;
+  };
   return (
     <div>
       <Header pageTitle={data.chapter} />
@@ -57,6 +76,10 @@ const Chapters = (props) => {
             `}
           >
             <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
+          </div>
+          <div>
+            {data.next && <Link to={navigate(data.next)}>Previous</Link>}
+            {data.prev && <Link to={navigate(data.prev)}>Next</Link>}
           </div>
         </div>
       </div>

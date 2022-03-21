@@ -12,6 +12,10 @@ export const ListCourses = () => {
           id
           img
           name
+          topics{
+            id
+            name
+          }
         }
       }
       allSitePage {

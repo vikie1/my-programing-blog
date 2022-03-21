@@ -19,7 +19,7 @@ const Course = ({ data }) => {
          <h1>{data.course.name}</h1>
          <p>{data.course.desc}</p>
          </div>
-         {data.course.chapters.map(course => (
+         {data.course.chapters.sort((prev, next) => prev.chapter - next.chapter).map(course => (
            <Link to={getBlogUrl("ch" + course.id)} key={course.id}>
            <ul>
              <li>{course.chapter} - {course.name}</li>

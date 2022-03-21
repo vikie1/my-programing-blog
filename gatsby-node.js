@@ -88,12 +88,21 @@ exports.createPagesStatefully = async ({ graphql, actions, reporter }) => {
         component: path.resolve(`./src/components/chapter.js`),
         // You can use the values in this context in
         // our page layout component
-        context: { id: "ch" + chapters.id, data: {
-          course: node.name,
-          chapter: chapters.name,
-          date: chapters.postDate,
-          content: chapters.content
-        } },
+        context: {
+          id: "ch" + chapters.id,
+          data: {
+            course: node.name,
+            chapter: chapters.name,
+            date: chapters.postDate,
+            content: chapters.content,
+            prev: node.chapters[index - 1]
+              ? "ch" + node.chapters[index - 1].id
+              : null,
+            next: node.chapters[index + 1]
+              ? "ch" + node.chapters[index + 1].id
+              : null,
+          },
+        },
       });
     });
   });
