@@ -35,6 +35,7 @@ exports.sourceNodes = async ({
       desc: course.description,
       img: course.imgURL,
       chapters: course.courses,
+      topics: course.topic,
       // required fields
       parent: null,
       internal: {
@@ -57,7 +58,10 @@ exports.createPagesStatefully = async ({ graphql, actions, reporter }) => {
             name
             chapters {
               chapter
+              content
               id
+              name
+              postDate
             }
           }
         }
@@ -81,10 +85,15 @@ exports.createPagesStatefully = async ({ graphql, actions, reporter }) => {
           .replace(/ /g, "-")
           .replace(/[.,\/#!$%\^&\*;:{}=\_`~()]/g, "")}/${chapters.chapter}`,
         // This component will wrap our MDX content
-        component: path.resolve(`./src/pages/courses/{course.name}/chapter.js`),
+        component: path.resolve(`./src/components/chapter.js`),
         // You can use the values in this context in
         // our page layout component
-        context: { id: "ch" + chapters.id },
+        context: { id: "ch" + chapters.id, data: {
+          course: node.name,
+          chapter: chapters.name,
+          date: chapters.postDate,
+          content: chapters.content
+        } },
       });
     });
   });

@@ -5,7 +5,6 @@ import { Header } from "../../../components/header/header";
 
 const Course = ({ data }) => {
   const getBlogUrl = (id) => {
-    console.log(id)
     const blogUrl = data.allSitePage.nodes.find((blog) => {
       if (blog.pageContext.id) {
         return blog.pageContext.id === "" + id;
@@ -23,7 +22,7 @@ const Course = ({ data }) => {
          {data.course.chapters.map(course => (
            <Link to={getBlogUrl("ch" + course.id)} key={course.id}>
            <ul>
-             <li>{course.chapter}</li>
+             <li>{course.chapter} - {course.name}</li>
            </ul>
            </Link>
          ))}
@@ -39,6 +38,7 @@ export const query = graphql`
       chapters {
         chapter
         id
+        name
       }
     }
     allSitePage {
