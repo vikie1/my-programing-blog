@@ -5,10 +5,10 @@ import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
 
-const BlogPost = ({ data }) => {
+const RoadMapPage = ({ data }) => {
   return (
     <div>
-      <Header pageTitle={data.blog.name} />
+      <Header pageTitle={data.roadMaps.name} />
       <div
         css={css`
           width: 100vw;
@@ -32,7 +32,7 @@ const BlogPost = ({ data }) => {
               sans-serif;
           `}
         >
-          <h1>{data.blog.name}</h1>
+          <h1>{data.roadMaps.name}</h1>
           <div
             css={css`
               padding-bottom: 0.2rem;
@@ -46,15 +46,15 @@ const BlogPost = ({ data }) => {
                 font-style: italic;
               `}
             >
-              Last Edit: {new Date(data.blog.date).toDateString()}
+              Last Edit: {new Date(data.roadMaps.date).toDateString()}
             </span>
           </div>
           <img
-            src={data.blog.img}
+            src={data.roadMaps.img}
             css={css`
               max-width: 100%;
             `}
-            alt="Blogs hero"
+            alt="Roadmap pictorial representation"
             loading="lazy"
           />
           <div
@@ -64,7 +64,9 @@ const BlogPost = ({ data }) => {
               }
             `}
           >
-            <div dangerouslySetInnerHTML={{ __html: data.blog.content }}></div>
+            <div
+              dangerouslySetInnerHTML={{ __html: data.roadMaps.content }}
+            ></div>
             {/* <MDXContent /> --This didn't work during gatsby build, using the above div before I figure out how to work with it. I am also not sure of its advantages to the above to spend somuch time on it */}
           </div>
         </div>
@@ -85,8 +87,8 @@ const BlogPost = ({ data }) => {
           {data.allBlog.nodes
             .filter((related) => {
               return related.topics.some((topic) => {
-                for (const key in data.blog.topics) {
-                  return data.blog.topics[key].id === topic.id;
+                for (const key in data.roadMaps.topics) {
+                  return data.roadMaps.topics[key].id === topic.id;
                 }
               });
             })
@@ -98,10 +100,7 @@ const BlogPost = ({ data }) => {
                   margin-right: 2rem;
                 `}
               >
-                {/*to negate this, currently needed only for layout */}
-                {blog.id === data.blog.id && (
-                  <BlogList blog={blog} data={data} />
-                )}
+                <BlogList blog={blog} data={data} />
               </div>
             ))}
         </div>
@@ -110,11 +109,11 @@ const BlogPost = ({ data }) => {
     </div>
   );
 };
-export default BlogPost;
+export default RoadMapPage;
 
 export const query = graphql`
   query ($id: String) {
-    blog(id: { eq: $id }) {
+    roadMaps(id: { eq: $id }) {
       id
       img
       name

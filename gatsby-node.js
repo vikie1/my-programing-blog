@@ -8,8 +8,10 @@ exports.sourceNodes = async ({
   // get data from API at build time
   const blog = await fetch(getUrl("blogAPI"));
   const courses = await fetch(getUrl("courseAPI"));
+  const roadMaps = await fetch(getUrl("roadMapsAPI"));
   const blogData = await blog.json();
   const coursesData = await courses.json();
+  const roadMapsData = await roadMaps.json();
   // create node for build time data
   blogData.blog.map((blog) => {
     createNode({
@@ -41,6 +43,23 @@ exports.sourceNodes = async ({
       internal: {
         type: `Course`,
         contentDigest: createContentDigest(coursesData),
+      },
+    });
+  });
+  roadMapsData.roadMaps.map((roadMap) => {
+    createNode({
+      id: "r" + roadMap.id,
+      name: roadMap.name,
+      desc: roadMap.description,
+      img: roadMap.imgURL,
+      date: roadMap.postDate,
+      content: roadMap.explanation,
+      topics: roadMap.topics,
+      // required fields
+      parent: null,
+      internal: {
+        type: `RoadMaps`,
+        contentDigest: createContentDigest(roadMapsData),
       },
     });
   });

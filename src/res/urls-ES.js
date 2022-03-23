@@ -3,7 +3,8 @@ const getUrl = (name) => {
     const pbVictorSubUrls = {
       contact: pbVictor + "/contact",
       blogAPI: pbVictor + "/lfv/blogs",
-      courseAPI: pbVictor + "/lfv/courses"
+      courseAPI: pbVictor + "/lfv/courses",
+      roadMapsAPI: pbVictor + "/lfv/roadmaps"
     };
     return pbVictorSubUrls[name];
 };
