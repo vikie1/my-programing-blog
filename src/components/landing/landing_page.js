@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import background from "./software-development.jpg";
@@ -103,8 +103,8 @@ export const LandingPage = ({ children }) => {
             keeps you up to date and broadens your knowledge as a full stack web
             developer.
           </p>
-          <a
-            href=""
+          <Link
+            to="/courses"
             css={css`
               text-decoration: none;
               color: white;
@@ -118,7 +118,7 @@ export const LandingPage = ({ children }) => {
             `}
           >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
       <div

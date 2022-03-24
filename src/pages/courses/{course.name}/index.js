@@ -12,23 +12,39 @@ const Course = ({ data }) => {
     });
     return blogUrl.path;
   };
-    return (
-       <div className="-view">
-         <Header pageTitle={data.course.name} />
-         <div>
-         <h1>{data.course.name}</h1>
-         <p>{data.course.desc}</p>
-         </div>
-         {data.course.chapters.sort((prev, next) => prev.chapter - next.chapter).map(course => (
-           <Link to={getBlogUrl("ch" + course.id)} key={course.id}>
-           <ul>
-             <li>{course.chapter} - {course.name}</li>
-           </ul>
-           </Link>
-         ))}
-       </div>
-    );
-}
+  return (
+    <div>
+      <Header pageTitle={data.course.name} />
+      <main
+        css={css`
+          padding-bottom: 2rem;
+          width: 90%;
+          margin: 0 auto;
+          @media (min-width: 1024px) {
+            width: 70%;
+          }
+          font-family: "Nunito", sans-serif;
+        `}
+      >
+        <div>
+          <h1>{data.course.name}</h1>
+          <p>{data.course.desc}</p>
+        </div>
+        {data.course.chapters
+          .sort((prev, next) => prev.chapter - next.chapter)
+          .map((course) => (
+            <Link to={getBlogUrl("ch" + course.id)} key={course.id}>
+              <ul>
+                <li>
+                  {course.chapter} - {course.name}
+                </li>
+              </ul>
+            </Link>
+          ))}
+      </main>
+    </div>
+  );
+};
 export default Course;
 export const query = graphql`
   query ($id: String) {
