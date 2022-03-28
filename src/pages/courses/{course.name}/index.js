@@ -65,9 +65,3 @@ export const query = graphql`
     }
   }
 `;
-
-/* 
-notes: 
- - we need a chapter name(or something like that)
- - Need topics to move up to course or add topic to course
-*/

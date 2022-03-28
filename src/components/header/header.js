@@ -15,7 +15,7 @@ export const Header = ({ pageTitle }) => {
             siteUrl
           }
         }
-        file(relativePath: { eq: "logo.png" }) {
+        file(relativePath: { eq: "gatsby-icon.png" }) {
           childImageSharp {
             gatsbyImageData(layout: FIXED, width: 70, height: 70)
           }
@@ -121,17 +121,17 @@ export const MenuItems = ({ display, displaySM }) => {
         </Link>
       </li>
       <li>
-        <Link to="/courses" css={hoverUnderline}>
+        <Link to="/courses/" css={hoverUnderline}>
           Courses
         </Link>
       </li>
       <li>
-        <Link to="/blog" css={hoverUnderline}>
+        <Link to="/blog/" css={hoverUnderline}>
           Blog
         </Link>
       </li>
       <li>
-        <Link to="/about" css={hoverUnderline}>
+        <Link to="/about/" css={hoverUnderline}>
           About
         </Link>
       </li>

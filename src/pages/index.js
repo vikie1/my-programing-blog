@@ -20,7 +20,7 @@ const IndexPage = () => {
       <LandingPage>
         <div
           css={css`
-            height: 50vh;
+            min-height: 50vh;
             background-color: white;
             display: flex;
             justify-content: space-around;
@@ -29,6 +29,13 @@ const IndexPage = () => {
               Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
               sans-serif;
             opacity: 0.9;
+            @media (max-width: 400px) {
+              display: block;
+            }
+            @media (max-width: 558px) {
+              display: block;
+              padding: 0 4rem;
+            }
           `}
         >
           <div
@@ -37,6 +44,9 @@ const IndexPage = () => {
               display: flex;
               flex-direction: column;
               align-items: center;
+              @media (max-width:768px) {
+                padding: 0 1rem;
+              }
             `}
           >
             <img src={courses} alt="" width={80} height={80} />
@@ -55,6 +65,9 @@ const IndexPage = () => {
               display: flex;
               flex-direction: column;
               align-items: center;
+              @media (max-width: 768px) {
+                padding: 0 1rem;
+              }
             `}
           >
             <img src={roadmap} alt="" width={80} height={80} />
@@ -73,6 +86,9 @@ const IndexPage = () => {
               display: flex;
               flex-direction: column;
               align-items: center;
+              @media (max-width: 768px) {
+                padding: 0 1rem;
+              }
             `}
           >
             <img src={blog} alt="" width={80} height={80} />
