@@ -17,15 +17,9 @@ export const Head = ({
           siteUrl
         }
       }
-      file(relativePath: { eq: "gatsby-icon.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: FIXED)
-        }
-      }
-    }
     }
   `);
-  const logo = getImage(siteMetadata.file);
+  const logo = "https://res.cloudinary.com/victor-portfolio/image/upload/v1649851633/gatsby-icon_afracv.png"
   return (
     <>
       <Helmet>
@@ -43,7 +37,7 @@ export const Head = ({
         />
         <link
           rel="canonical"
-          href={siteMetadata.site.siteMetadata.siteUrl + siteLocation}
+          href={siteMetadata.site.siteMetadata.siteUrl + siteLocation.pathname}
         />
         <meta property="og:type" content={pageType ? pageType : "website"} />
         <meta
@@ -67,7 +61,7 @@ export const Head = ({
           property="og:site_name"
           content={
             siteMetadata.site.siteMetadata.title +
-            "Equip yourself with skills that will definitely land you a job in tech"
+            " - Equip yourself with skills that will definitely land you a job in tech"
           }
         />
         <meta name="twitter:card" content="summary_large_image" />
@@ -88,7 +82,7 @@ export const Head = ({
         <meta name="twitter:site" content="@_victormwangi" />
         <meta
           name="twitter:url"
-          content={siteMetadata.site.siteMetadata.siteUrl + siteLocation}
+          content={siteMetadata.site.siteMetadata.siteUrl + siteLocation.pathname}
         />
       </Helmet>
     </>

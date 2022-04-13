@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import React, { useState } from "react";
-import { Head } from "../headSection";
 
 export const Header = () => {
   /** required variables */
