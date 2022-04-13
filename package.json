@@ -29,6 +29,7 @@
     "gatsby-plugin-image": "^2.6.0",
     "gatsby-plugin-manifest": "^4.6.0",
     "gatsby-plugin-mdx": "^3.7.1",
+    "gatsby-plugin-react-helmet": "^5.12.1",
     "gatsby-plugin-sharp": "^4.6.0",
     "gatsby-plugin-sitemap": "^5.10.2",
     "gatsby-source-filesystem": "^4.6.0",
@@ -37,6 +38,7 @@
     "react-dom": "^17.0.1",
     "react-draft-wysiwyg": "^1.14.7",
     "react-draft-wysiwyg-a": "^1.14.5-1",
+    "react-helmet": "^6.1.0",
     "xdm": "^3.3.4"
   }
 }

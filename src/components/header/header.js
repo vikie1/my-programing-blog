@@ -2,19 +2,14 @@ import { css } from "@emotion/react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import React, { useState } from "react";
+import { Head } from "../headSection";
 
-export const Header = ({ pageTitle }) => {
+export const Header = () => {
   /** required variables */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const getMetadata = useStaticQuery(
     graphql`
       query MetaDataQuery {
-        site {
-          siteMetadata {
-            title
-            siteUrl
-          }
-        }
         file(relativePath: { eq: "gatsby-icon.png" }) {
           childImageSharp {
             gatsbyImageData(layout: FIXED, width: 70, height: 70)
@@ -39,9 +34,6 @@ export const Header = ({ pageTitle }) => {
   };
   return (
     <div className="">
-      <title>
-        {pageTitle} | {getMetadata.site.siteMetadata.title}
-      </title>
       <header
         css={css`
           display: flex;
