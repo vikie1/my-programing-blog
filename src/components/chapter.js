@@ -3,8 +3,9 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
+import { Head } from "./headSection";
 
-const Chapters = (props) => {
+const Chapters = (props, { location }) => {
   const data = props.pageContext.data;
   const pages = useStaticQuery(graphql`
     query {
@@ -26,7 +27,14 @@ const Chapters = (props) => {
   };
   return (
     <div>
-      <Header pageTitle={data.chapter} />
+      <Head
+        pageTitle={data.chapter}
+        description={data.chapter}
+        siteLocation={location}
+        pageType={"article"}
+        siteImage={data.img}
+      />
+      <Header />
       <div
         css={css`
           width: 100vw;

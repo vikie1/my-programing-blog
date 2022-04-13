@@ -75,6 +75,7 @@ exports.createPagesStatefully = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             name
+            img
             chapters {
               chapter
               content
@@ -113,6 +114,7 @@ exports.createPagesStatefully = async ({ graphql, actions, reporter }) => {
             id: "ch" + chapters.id,
             data: {
               course: node.name,
+              img: node.img,
               chapter: chapters.name,
               date: chapters.postDate,
               content: chapters.content,

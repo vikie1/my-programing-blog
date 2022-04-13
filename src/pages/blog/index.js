@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import { BlogCard } from "../../components/blog-card";
 import { Header } from "../../components/header/header";
+import { Head } from "../../components/headSection";
 
 const ArticlesPage = (props) => {
   const data = useStaticQuery(graphql`
@@ -13,7 +14,7 @@ const ArticlesPage = (props) => {
           img
           id
           name
-          topics{
+          topics {
             id
             name
           }
@@ -29,7 +30,14 @@ const ArticlesPage = (props) => {
   `);
   return (
     <main>
-      <Header pageTitle="Read Blog Articles" />
+      <Head
+        pageTitle="Read Blog Articles"
+        description={
+          "Access blogs discussing important aspects of tech that will help bolster your knowledge and cultivate best practices."
+        }
+        siteLocation={"/blog/"}
+      />
+      <Header />
       <div
         css={css`
           display: flex;
@@ -53,7 +61,7 @@ const ArticlesPage = (props) => {
           `}
         >
           {data.allBlog.nodes.map((blog) => (
-            <BlogCard blog={blog} data={data}/>
+            <BlogCard blog={blog} data={data} />
           ))}
         </div>
       </div>

@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { StaticImage } from "gatsby-plugin-image";
 import { Header } from "../../components/header/header";
 import { ContactForm } from "../../components/contact-form";
+import { Head } from "../../components/headSection";
 
 const AboutPage = () => {
   const socialLinks = css`
@@ -22,7 +23,8 @@ const AboutPage = () => {
         padding-bottom: 2rem;
       `}
     >
-      <Header pageTitle="About Me" />
+      <Head pageTitle="About Me" siteLocation={"/about/"}/>
+      <Header />
       <main
         css={css`
           width: 90%;

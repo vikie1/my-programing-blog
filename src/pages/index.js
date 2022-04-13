@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import * as React from "react";
 import { Footer } from "../components/footer/footer";
 import { Header } from "../components/header/header";
+import { Head } from "../components/headSection";
 import { LandingPage } from "../components/landing/landing_page";
 
 import blog from "../images/programming-svgrepo-com2.svg";
@@ -16,7 +17,8 @@ const IndexPage = () => {
         padding: 0;
       `}
     >
-      <Header pageTitle="Home Page" />
+      <Head pageTitle="Home Page" siteLocation={"/"} />
+      <Header />
       <LandingPage>
         <div
           css={css`

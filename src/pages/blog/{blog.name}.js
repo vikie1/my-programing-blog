@@ -4,11 +4,19 @@ import React from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
+import { Head } from "../../components/headSection";
 
-const BlogPost = ({ data }) => {
+const BlogPost = ({ location ,data }) => {
   return (
     <div>
-      <Header pageTitle={data.blog.name} />
+      <Head
+        pageTitle={data.blog.name}
+        description={data.blog.desc}
+        pageType={"article"}
+        siteImage={data.blog.img}
+        siteLocation={location}
+      />
+      <Header />
       <div
         css={css`
           width: 100vw;
@@ -119,6 +127,7 @@ export const query = graphql`
       img
       name
       content
+      desc
       date
       topics {
         id

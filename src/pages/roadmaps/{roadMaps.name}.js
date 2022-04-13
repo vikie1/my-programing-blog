@@ -4,11 +4,19 @@ import React from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
+import { Head } from "../../components/headSection";
 
-const RoadMapPage = ({ data }) => {
+const RoadMapPage = ({ location, data }) => {
   return (
     <div>
-      <Header pageTitle={data.roadMaps.name} />
+      <Head
+        pageTitle={data.roadMaps.name}
+        siteLocation={location}
+        siteImage={data.roadMaps.img}
+        description={data.roadMaps.desc}
+        pageType={"article"}
+      />
+      <Header />
       <div
         css={css`
           width: 100vw;
@@ -119,6 +127,7 @@ export const query = graphql`
       name
       content
       date
+      desc
       topics {
         id
         name

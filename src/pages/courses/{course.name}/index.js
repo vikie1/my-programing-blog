@@ -2,8 +2,9 @@ import { css } from "@emotion/react";
 import { graphql, Link } from "gatsby";
 import React from "react";
 import { Header } from "../../../components/header/header";
+import { Head } from "../../../components/headSection";
 
-const Course = ({ data }) => {
+const Course = ({ location, data }) => {
   const getBlogUrl = (id) => {
     const blogUrl = data.allSitePage.nodes.find((blog) => {
       if (blog.pageContext.id) {
@@ -14,7 +15,14 @@ const Course = ({ data }) => {
   };
   return (
     <div>
-      <Header pageTitle={data.course.name} />
+      <Head
+        pageTitle={data.course.name}
+        description={data.course.desc}
+        siteImage={data.course.img}
+        siteLocation={location}
+        pageType={"article"}
+      />
+      <Header />
       <main
         css={css`
           padding-bottom: 2rem;
@@ -51,6 +59,7 @@ export const query = graphql`
     course(id: { eq: $id }) {
       desc
       name
+      img
       chapters {
         chapter
         id
