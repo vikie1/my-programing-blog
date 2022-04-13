@@ -14,7 +14,7 @@ const BlogPost = ({ location ,data }) => {
         description={data.blog.desc}
         pageType={"article"}
         siteImage={data.blog.img}
-        siteLocation={location}
+        siteLocation={location.pathname}
       />
       <Header />
       <div

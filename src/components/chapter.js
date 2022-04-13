@@ -6,6 +6,7 @@ import { Header } from "./header/header";
 import { Head } from "./headSection";
 
 const Chapters = (props, { location }) => {
+  console.log(props, location)
   const data = props.pageContext.data;
   const pages = useStaticQuery(graphql`
     query {
@@ -30,7 +31,7 @@ const Chapters = (props, { location }) => {
       <Head
         pageTitle={data.chapter}
         description={data.chapter}
-        siteLocation={location}
+        siteLocation={props.path}
         pageType={"article"}
         siteImage={data.img}
       />

@@ -11,7 +11,7 @@ const RoadMapPage = ({ location, data }) => {
     <div>
       <Head
         pageTitle={data.roadMaps.name}
-        siteLocation={location}
+        siteLocation={location.pathname}
         siteImage={data.roadMaps.img}
         description={data.roadMaps.desc}
         pageType={"article"}

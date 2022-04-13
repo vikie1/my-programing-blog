@@ -37,7 +37,7 @@ export const Head = ({
         />
         <link
           rel="canonical"
-          href={siteMetadata.site.siteMetadata.siteUrl + siteLocation.pathname}
+          href={siteMetadata.site.siteMetadata.siteUrl + siteLocation}
         />
         <meta property="og:type" content={pageType ? pageType : "website"} />
         <meta
@@ -82,7 +82,7 @@ export const Head = ({
         <meta name="twitter:site" content="@_victormwangi" />
         <meta
           name="twitter:url"
-          content={siteMetadata.site.siteMetadata.siteUrl + siteLocation.pathname}
+          content={siteMetadata.site.siteMetadata.siteUrl + siteLocation}
         />
       </Helmet>
     </>
