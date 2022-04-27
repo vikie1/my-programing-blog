@@ -3,6 +3,7 @@ import { graphql, Link } from "gatsby";
 import React from "react";
 import { Header } from "../../../components/header/header";
 import { Head } from "../../../components/headSection";
+import { globalVars } from "../../../res/globalVars";
 
 const Course = ({ location, data }) => {
   const getBlogUrl = (id) => {
@@ -13,12 +14,16 @@ const Course = ({ location, data }) => {
     });
     return blogUrl.path;
   };
+
+  const separator = globalVars("separator");
+  const imgAndCredits = data.course.img.split(separator);
+  const image = imgAndCredits[0];
   return (
     <div>
       <Head
         pageTitle={data.course.name}
         description={data.course.desc}
-        siteImage={data.course.img}
+        siteImage={image}
         siteLocation={location.pathname}
         pageType={"article"}
       />

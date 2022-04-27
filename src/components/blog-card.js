@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import { css } from "@emotion/react";
+import { globalVars } from "../res/globalVars";
 
 export const BlogCard = ({ blog, data }) => {
   const getBlogUrl = (id) => {
@@ -11,6 +12,10 @@ export const BlogCard = ({ blog, data }) => {
     });
     return blogUrl.path;
   };
+
+  const separator = globalVars("separator");
+  const imgAndCredits = blog.img.split(separator);
+  const image = imgAndCredits[0];
 
   return (
     <article
@@ -32,7 +37,13 @@ export const BlogCard = ({ blog, data }) => {
         `}
       >
         <span>
-          <img src={blog.img} loading='lazy' alt="Blogs preview" width={348} height={200} />
+          <img
+            src={image}
+            loading="lazy"
+            alt="Blogs preview"
+            width={348}
+            height={200}
+          />
         </span>
         <span>
           <div>
@@ -66,18 +77,21 @@ export const BlogCard = ({ blog, data }) => {
               `}
             >
               topics discussed:
-              {blog.topics ? blog.topics.map((topic, index) => (
-                <>{index>0 ? ',' : ''}
-                <span
-                  key={index}
-                  css={css`
-                    padding-left: 5px;
-                  `}
-                >
-                  {topic.name}
-                </span>
-                </>
-              )) : null}
+              {blog.topics
+                ? blog.topics.map((topic, index) => (
+                    <>
+                      {index > 0 ? "," : ""}
+                      <span
+                        key={index}
+                        css={css`
+                          padding-left: 5px;
+                        `}
+                      >
+                        {topic.name}
+                      </span>
+                    </>
+                  ))
+                : null}
             </div>
           </div>
         </span>

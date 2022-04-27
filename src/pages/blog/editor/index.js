@@ -3,7 +3,7 @@ import { convertToRaw, EditorState } from "draft-js";
 import React, { useState } from "react";
 import draftToHtml from "draftjs-to-html";
 // import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
-import loadable from '@loadable/component'
+import loadable from "@loadable/component";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import * as styles from "./index.module.css";
 import { useUrl } from "../../../res/urls";
@@ -11,7 +11,9 @@ import { protectedVars } from "../../../res/protectedVars";
 import { globalVars } from "../../../res/globalVars";
 
 const EditorPage = (props) => {
-  const Editor = loadable(() => import('react-draft-wysiwyg').then(mod => mod.Editor));//fix for gatsby build
+  const Editor = loadable(() =>
+    import("react-draft-wysiwyg").then((mod) => mod.Editor)
+  ); //fix for gatsby build
   const [imgUrl, setImgUrl] = useState(null);
   const [imgCredits, setImgCredits] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -60,8 +62,8 @@ const EditorPage = (props) => {
     e.preventDefault();
     const date = new Date(Date.now()).toISOString().split("T")[0];
     const topicsArray = topics.split(/\s*,\s*/);
-    const separator = globalVars('separator');
-    const imgURL = (imgCredits) ? imgUrl + separator + imgCredits : imgUrl;
+    const separator = globalVars("separator");
+    const imgURL = imgCredits ? imgUrl + separator + imgCredits : imgUrl;
     const data = {
       name,
       imgURL,
@@ -199,17 +201,19 @@ const EditorPage = (props) => {
               {isLoading ? <div>Uploading File</div> : null}
               {error ? <div>{error}</div> : null}
               <input
-              type="text"
-              value={imgUrl}
-              css={[inputs]}
-              placeholder="Enter the imgUrl here"
-              onChange={(e) =>  setImgUrl((prevName) => e.target.value)}/>
+                type="text"
+                value={imgUrl}
+                css={[inputs]}
+                placeholder="Enter the imgUrl here"
+                onChange={(e) => setImgUrl((prevName) => e.target.value)}
+              />
               <input
-              type="text"
-              value={imgCredits}
-              css={[inputs]}
-              placeholder="Enter the img credits here"
-              onChange={(e) =>  setImgCredits((prevName) => e.target.value)}/>
+                type="text"
+                value={imgCredits}
+                css={[inputs]}
+                placeholder="Enter the img credits here"
+                onChange={(e) => setImgCredits((prevName) => e.target.value)}
+              />
             </div>
           </div>
           <div

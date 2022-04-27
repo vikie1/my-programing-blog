@@ -1,19 +1,25 @@
 import { css } from "@emotion/react";
 import { graphql } from "gatsby";
-import React from "react";
+import React, { useState } from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
 import { Head } from "../../components/headSection";
+import { globalVars } from "../../res/globalVars";
 
-const BlogPost = ({ location ,data }) => {
+const BlogPost = ({ location, data }) => {
+  const [related, setRelated] = useState(false);
+  const separator = globalVars("separator");
+  const imgAndCredits = data.blog.img.split(separator);
+  const image = imgAndCredits[0];
+  const credits = imgAndCredits[1];
   return (
     <div>
       <Head
         pageTitle={data.blog.name}
         description={data.blog.desc}
         pageType={"article"}
-        siteImage={data.blog.img}
+        siteImage={image}
         siteLocation={location.pathname}
       />
       <Header />
@@ -58,13 +64,25 @@ const BlogPost = ({ location ,data }) => {
             </span>
           </div>
           <img
-            src={data.blog.img}
+            src={image}
             css={css`
               max-width: 100%;
             `}
             alt="Blogs hero"
             loading="lazy"
           />
+          {credits && (
+            <div
+              css={css`
+                opacity: 0.5;
+                text-decoration: underline;
+                font-family: "Dosis", sans-serif;
+                font-style: italic;
+              `}
+            >
+              Image Credits: {credits}
+            </div>
+          )}
           <div
             css={css`
               h1 {
@@ -107,7 +125,7 @@ const BlogPost = ({ location ,data }) => {
                 `}
               >
                 {/*to negate this, currently needed only for layout */}
-                {blog.id === data.blog.id && (
+                {blog.id !== data.blog.id && (
                   <BlogList blog={blog} data={data} />
                 )}
               </div>

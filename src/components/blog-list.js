@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import { css } from "@emotion/react";
+import { globalVars } from "../res/globalVars";
 
 export const BlogList = ({ blog, data }) => {
   const getBlogUrl = (id) => {
@@ -11,6 +12,11 @@ export const BlogList = ({ blog, data }) => {
     });
     return blogUrl.path;
   };
+
+  const separator = globalVars("separator");
+  const imgAndCredits = blog.img.split(separator);
+  const image = imgAndCredits[0];
+
   return (
     <article
       key={blog.id}
@@ -40,7 +46,13 @@ export const BlogList = ({ blog, data }) => {
         `}
       >
         <span>
-          <img src={blog.img} loading='lazy' alt="Blogs preview" width={70} height={70} />
+          <img
+            src={image}
+            loading="lazy"
+            alt="Blogs preview"
+            width={70}
+            height={70}
+          />
         </span>
         <span
           css={css`
@@ -88,15 +100,16 @@ export const BlogList = ({ blog, data }) => {
           >
             topics discussed:
             {blog.topics.map((topic, index) => (
-            <>{index>0 ? ',' : ''}
-              <span
-                key={index}
-                css={css`
-                  padding-left: 5px;
-                `}
-              >
-                {topic.name}
-              </span>
+              <>
+                {index > 0 ? "," : ""}
+                <span
+                  key={index}
+                  css={css`
+                    padding-left: 5px;
+                  `}
+                >
+                  {topic.name}
+                </span>
               </>
             ))}
           </div>
