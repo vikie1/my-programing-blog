@@ -194,6 +194,13 @@ const EditorPage = (props) => {
               />
               {isLoading ? <div>Uploading File</div> : null}
               {error ? <div>{error}</div> : null}
+              <input
+              type="text"
+              value={imgURL}
+              css={[inputs]}
+              placeholder="Name * (Use blog title here)"
+              onChange={(e) =>  setImgUrl((prevName) => e.target.value)}
+            />
             </div>
           </div>
           <div
