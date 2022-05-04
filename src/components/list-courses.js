@@ -12,7 +12,7 @@ export const ListCourses = () => {
           id
           img
           name
-          topics{
+          topics {
             id
             name
           }
@@ -41,7 +41,7 @@ export const ListCourses = () => {
       `}
     >
       {query.allCourse.nodes.map((blog) => (
-        <BlogCard blog={blog} data={query} />
+          <BlogCard blog={blog} data={query} />
       ))}
     </div>
   );

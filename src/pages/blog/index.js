@@ -50,18 +50,17 @@ const ArticlesPage = (props) => {
             display: grid;
             place-content: center;
             padding: 3rem 0;
+            gap: 2rem;
             @media (min-width: 768px) {
               grid-template-columns: 1fr 1fr;
-              gap: 2rem;
             }
             @media (min-width: 1024px) {
               grid-template-columns: 1fr 1fr 1fr;
-              gap: 2rem;
             }
           `}
         >
           {data.allBlog.nodes.map((blog) => (
-            <BlogCard blog={blog} data={data} />
+              <BlogCard blog={blog} data={data} />
           ))}
         </div>
       </div>
