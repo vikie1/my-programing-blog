@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import { Helmet } from "react-helmet";
+import { Adsense } from "./googleAd";
 
 export const Head = ({
   pageTitle,
@@ -84,6 +85,7 @@ export const Head = ({
           name="twitter:url"
           content={siteMetadata.site.siteMetadata.siteUrl + siteLocation}
         />
+        <Adsense />
       </Helmet>
     </>
   );
