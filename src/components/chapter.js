@@ -37,7 +37,7 @@ const Chapters = (props, { location }) => {
         description={data.chapter}
         siteLocation={props.path}
         pageType={"article"}
-        siteImage={image}
+        siteImage={image + "?174x100&fm=webp"}
       />
       <Header />
       <div

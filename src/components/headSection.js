@@ -85,7 +85,7 @@ export const Head = ({
           name="twitter:url"
           content={siteMetadata.site.siteMetadata.siteUrl + siteLocation}
         />
-        <Adsense />
+        {/* <Adsense /> */}
       </Helmet>
     </>
   );
