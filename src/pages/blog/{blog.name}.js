@@ -19,7 +19,7 @@ const BlogPost = ({ location, data }) => {
         pageTitle={data.blog.name}
         description={data.blog.desc}
         pageType={"article"}
-        siteImage={image}
+        siteImage={image + "?174x100&fm=webp"}
         siteLocation={location.pathname}
       />
       <Header />
@@ -64,7 +64,7 @@ const BlogPost = ({ location, data }) => {
             </span>
           </div>
           <img
-            src={image}
+            src={image + "?fm=webp"}
             css={css`
               max-width: 100%;
             `}
