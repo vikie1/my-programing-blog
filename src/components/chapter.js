@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
+import { globalVars } from "../res/globalVars";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
 import { Head } from "./headSection";
@@ -26,6 +27,9 @@ const Chapters = (props, { location }) => {
     });
     return resource.path;
   };
+  const separator = globalVars("separator");
+  const imgAndCredits = data.img.split(separator);
+  const image = imgAndCredits[0];
   return (
     <div>
       <Head
@@ -33,7 +37,7 @@ const Chapters = (props, { location }) => {
         description={data.chapter}
         siteLocation={props.path}
         pageType={"article"}
-        siteImage={data.img}
+        siteImage={image}
       />
       <Header />
       <div
