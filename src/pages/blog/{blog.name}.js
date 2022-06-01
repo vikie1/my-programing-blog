@@ -42,7 +42,7 @@ const BlogPost = ({ location, data }) => {
               margin: 0 5rem;
             }
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", 'Nunito',
               sans-serif;
           `}
         >

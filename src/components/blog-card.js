@@ -63,6 +63,11 @@ export const BlogCard = ({ blog, data }) => {
                 font-size: medium;
                 font-family: "Karla", sans-serif;
                 margin: 0%;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
               `}
             >
               {blog.desc}
