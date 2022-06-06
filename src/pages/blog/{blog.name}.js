@@ -68,7 +68,7 @@ const BlogPost = ({ location, data }) => {
             css={css`
               max-width: 100%;
             `}
-            alt="Blogs hero"
+            alt="Blog's hero"
             loading="lazy"
           />
           {credits && (
