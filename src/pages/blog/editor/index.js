@@ -87,11 +87,6 @@ const EditorPage = (props) => {
       })
       .then((res) => {
         setIsloading(false);
-        setEditorState(() => EditorState.createEmpty());
-        setDescription("");
-        setImgUrl("");
-        setName("");
-        setTopics("");
       })
       .catch((error) => {
         setIsloading(false);

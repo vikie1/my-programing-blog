@@ -90,12 +90,6 @@ const EditorPage = (props) => {
       })
       .then((res) => {
         setIsloading(false);
-        setEditorState(() => EditorState.createEmpty());
-        setDescription("");
-        setImgUrl("");
-        setName("");
-        setTopics("");
-        setChapterName("");
       })
       .catch((error) => {
         setIsloading(false);
