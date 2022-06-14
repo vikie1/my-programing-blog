@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { convertToRaw, EditorState } from "draft-js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import draftToHtml from "draftjs-to-html";
 // import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
 import loadable from "@loadable/component";
@@ -14,6 +14,7 @@ const EditorPage = (props) => {
   const Editor = loadable(() =>
     import("react-draft-wysiwyg").then((mod) => mod.Editor)
   ); //fix for gatsby build
+
   const [imgUrl, setImgUrl] = useState(null);
   const [imgCredits, setImgCredits] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -26,6 +27,7 @@ const EditorPage = (props) => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+
   const handleFileChange = (e) => {
     const cloudinaryUploadAPI = protectedVars("cloudinaryImage");
     const preset = protectedVars("preset");
@@ -58,13 +60,16 @@ const EditorPage = (props) => {
         }
       });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  const pageResults = () => {
     const date = new Date(Date.now()).toISOString().split("T")[0];
-    const topicsArray = topics.split(/\s*,\s*/);
+    let topicsArray;
+    if (topics) {
+      topicsArray = topics.split(/\s*,\s*/);
+    }
     const separator = globalVars("separator");
     const imgURL = imgCredits ? imgUrl + separator + imgCredits : imgUrl;
-    const data = {
+    return {
       name,
       imgURL,
       description,
@@ -72,6 +77,11 @@ const EditorPage = (props) => {
       topics: topicsArray,
       post: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     };
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = pageResults();
     console.log(JSON.stringify(data));
     setIsloading(true);
     fetch(url, {
@@ -97,6 +107,7 @@ const EditorPage = (props) => {
         }
       });
   };
+
   const button = css`
     text-decoration: none;
     color: white;
@@ -121,6 +132,34 @@ const EditorPage = (props) => {
     margin-bottom: 5px;
     padding: 5px;
   `;
+
+  const bkpToLocalStorage = async () => {
+    const data = pageResults();
+
+    const nameEncoded = await crypto.subtle.digest(
+      "SHA-1",
+      new TextEncoder("utf-8").encode(name)
+    );
+    const localDataName = Array.prototype.map
+      .call(new Uint8Array(nameEncoded), (x) =>
+        ("00" + x.toString(16)).slice(-2)
+      )
+      .join("");
+    
+    console.log(localDataName, data);
+    localStorage.setItem(localDataName, JSON.stringify(data));
+  };
+
+  useEffect(() => {
+    // const interval = 5000;
+    // const executable = setInterval(() => {
+    //   bkpToLocalStorage();
+    // }, interval);
+
+    bkpToLocalStorage();
+    // return () => clearInterval(executable);
+  }, [pageResults().post]);
+
   return (
     <body
       css={css`
