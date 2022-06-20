@@ -4,7 +4,6 @@ import {
   convertFromHTML,
   convertToRaw,
   EditorState,
-  Modifier,
 } from "draft-js";
 import React, { useEffect, useState } from "react";
 import draftToHtml from "draftjs-to-html";
@@ -174,6 +173,7 @@ const EditorPage = (props) => {
 
   const bkpToLocalStorage = async () => {
     const data = pageResults();
+    data["type"] = "blog";
 
     const nameEncoded = await crypto.subtle.digest(
       "SHA-1",
@@ -193,7 +193,7 @@ const EditorPage = (props) => {
     for (let [key, value] of Object.entries(localStorage)) {
       const data = JSON.parse(value);
       data["_id"] = key;
-      if (data.post && data.publishDate) {
+      if (data.type === "blog") {
         backups.push(data);
       }
     }

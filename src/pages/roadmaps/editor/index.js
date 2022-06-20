@@ -1,6 +1,11 @@
 import { css } from "@emotion/react";
-import { convertToRaw, EditorState } from "draft-js";
-import React, { useState } from "react";
+import {
+  ContentState,
+  convertFromHTML,
+  convertToRaw,
+  EditorState,
+} from "draft-js";
+import React, { useEffect, useState } from "react";
 import draftToHtml from "draftjs-to-html";
 // import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
 import loadable from "@loadable/component";
@@ -8,6 +13,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import * as styles from "./index.module.css";
 import { useUrl } from "../../../res/urls";
 import { protectedVars } from "../../../res/protectedVars";
+import { StaticImage } from "gatsby-plugin-image";
 
 const EditorPage = (props) => {
   const Editor = loadable(() =>
@@ -20,10 +26,13 @@ const EditorPage = (props) => {
   const [topics, setTopics] = useState(null);
   const [isloading, setIsloading] = useState(null);
   const [description, setDescription] = useState(null);
+  const [restore, setRestore] = useState(false);
   const url = useUrl("roadMapsAPI");
+  const [backedUp, setBackedUp] = useState([]);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+
   const handleFileChange = (e) => {
     const cloudinaryUploadAPI = protectedVars("cloudinaryImage");
     const preset = protectedVars("preset");
@@ -56,11 +65,14 @@ const EditorPage = (props) => {
         }
       });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  const pageResults = () => {
     const date = new Date(Date.now()).toISOString().split("T")[0];
-    const topicsArray = topics.split(/\s*,\s*/);
-    const data = {
+    let topicsArray;
+    if (topics) {
+      topicsArray = topics.split(/\s*,\s*/);
+    }
+    return {
       name,
       imgURL,
       description,
@@ -68,6 +80,36 @@ const EditorPage = (props) => {
       topics: topicsArray,
       explanation: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     };
+  };
+
+  const handleRestore = (data) => {
+    setName(data.name);
+    setDescription(data.description);
+    if (data.topics) {
+      for (let index = 0; index < data.topics.length; index++) {
+        if (!data.topics[index - 1]) {
+          setTopics(data.topics[index]);
+        } else {
+          setTopics((prevTopics) => prevTopics + ", " + data.topics[index]);
+        }
+      }
+    }
+    setImgUrl(data.imgURL);
+
+    const blocksFromHTML = convertFromHTML(data.explanation);
+    const { contentBlocks, entityMap } = blocksFromHTML;
+
+    let contentState = ContentState.createFromBlockArray(
+      contentBlocks,
+      entityMap
+    );
+
+    setEditorState(EditorState.createWithContent(contentState));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = pageResults();
     console.log(JSON.stringify(data));
     setIsloading(true);
     fetch(url, {
@@ -117,6 +159,44 @@ const EditorPage = (props) => {
     margin-bottom: 5px;
     padding: 5px;
   `;
+
+  const bkpToLocalStorage = async () => {
+    const data = pageResults();
+    data["type"] = "roadmap";
+
+    const nameEncoded = await crypto.subtle.digest(
+      "SHA-1",
+      new TextEncoder("utf-8").encode(name)
+    );
+    const localDataName = Array.prototype.map
+      .call(new Uint8Array(nameEncoded), (x) =>
+        ("00" + x.toString(16)).slice(-2)
+      )
+      .join("");
+
+    localStorage.setItem(localDataName, JSON.stringify(data));
+  };
+
+  const restoreFromLocalStorage = () => {
+    const backups = [];
+    for (let [key, value] of Object.entries(localStorage)) {
+      const data = JSON.parse(value);
+      data["_id"] = key;
+      if (data.type === "roadmap") {
+        backups.push(data);
+      }
+    }
+    return backups;
+  };
+
+  useEffect(() => {
+    bkpToLocalStorage();
+  }, [
+    pageResults().explanation,
+    pageResults().name,
+    pageResults().description,
+  ]);
+
   return (
     <body
       css={css`
@@ -177,6 +257,25 @@ const EditorPage = (props) => {
               required
               onChange={(e) => setTopics((prevTopics) => e.target.value)}
             />
+          </div>
+          <div
+            css={css`
+              display: flex;
+            `}
+          >
+            <textarea
+              name="description"
+              placeholder="Description *"
+              id=""
+              required
+              css={inputs}
+              cols="20"
+              rows="5"
+              value={description}
+              onChange={(e) =>
+                setDescription((prevDescription) => e.target.value)
+              }
+            ></textarea>
             <div
               css={css`
                 background-color: blue;
@@ -202,26 +301,6 @@ const EditorPage = (props) => {
           </div>
           <div
             css={css`
-              padding-right: 11px;
-              width: 50%;
-            `}
-          >
-            <textarea
-              name="description"
-              placeholder="Description *"
-              id=""
-              required
-              css={inputs}
-              cols="20"
-              rows="5"
-              value={description}
-              onChange={(e) =>
-                setDescription((prevDescription) => e.target.value)
-              }
-            ></textarea>
-          </div>
-          <div
-            css={css`
               bottom: 10%;
             `}
           >
@@ -235,6 +314,72 @@ const EditorPage = (props) => {
           </div>
         </form>
       </div>
+      <aside
+        css={css`
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+        `}
+      >
+        {restore && (
+          <>
+            {backedUp.map((item) => (
+              <div key={item._id}>
+                <span>{item.name}</span>
+                <StaticImage
+                  src="delete.svg"
+                  alt="Click to delete"
+                  title="Delete"
+                  height={20}
+                  width={20}
+                  onClick={() => {
+                    localStorage.removeItem(item._id);
+                    setBackedUp(restoreFromLocalStorage());
+                  }}
+                  css={css`
+                    cursor: pointer;
+                    :hover {
+                      background-color: lightblue;
+                    }
+                  `}
+                />
+                <StaticImage
+                  src="check.svg"
+                  alt="Click to restore"
+                  title="Restore"
+                  height={20}
+                  width={20}
+                  css={css`
+                    cursor: pointer;
+                    :hover {
+                      background-color: lightblue;
+                    }
+                  `}
+                  onClick={() => handleRestore(item)}
+                />
+              </div>
+            ))}
+          </>
+        )}
+        <div>
+          <StaticImage
+            src="restore.svg"
+            alt="Click to Restore"
+            title="Restore Draft"
+            height={40}
+            width={40}
+            css={css`
+              /* background-color: skyblue; */
+              border-radius: 10px;
+              cursor: pointer;
+            `}
+            onClick={(e) => {
+              setBackedUp(restoreFromLocalStorage());
+              setRestore(!restore);
+            }}
+          />
+        </div>
+      </aside>
     </body>
   );
 };
