@@ -36,7 +36,7 @@ const RoadMapPage = ({ location, data }) => {
               margin: 0 5rem;
             }
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", 'Nunito',
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", "Nunito",
               sans-serif;
           `}
         >
@@ -92,25 +92,16 @@ const RoadMapPage = ({ location, data }) => {
               Related:{" "}
             </h2>
           </div>
-          {data.allBlog.nodes
-            .filter((related) => {
-              return related.topics.some((topic) => {
-                for (const key in data.roadMaps.topics) {
-                  return data.roadMaps.topics[key].id === topic.id;
-                }
-              });
-            })
-            .slice(0, 5)
-            .map((blog) => (
-              <div
-                css={css`
-                  margin-top: 1rem;
-                  margin-right: 2rem;
-                `}
-              >
-                <BlogList blog={blog} data={data} />
-              </div>
-            ))}
+          {data.allBlog.nodes.slice(0, 5).map((blog) => (
+            <div
+              css={css`
+                margin-top: 1rem;
+                margin-right: 2rem;
+              `}
+            >
+              <BlogList blog={blog} data={data} />
+            </div>
+          ))}
         </div>
       </div>
       <Footer />

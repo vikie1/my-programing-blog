@@ -1,5 +1,11 @@
 import { css } from "@emotion/react";
-import { convertToRaw, EditorState } from "draft-js";
+import {
+  ContentState,
+  convertFromHTML,
+  convertToRaw,
+  EditorState,
+  Modifier,
+} from "draft-js";
 import React, { useEffect, useState } from "react";
 import draftToHtml from "draftjs-to-html";
 // import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
@@ -10,6 +16,7 @@ import { useUrl } from "../../../res/urls";
 import { protectedVars } from "../../../res/protectedVars";
 import { globalVars } from "../../../res/globalVars";
 import { HtmlSnippet } from "../../../components/editor/customHtml";
+import { StaticImage } from "gatsby-plugin-image";
 
 const EditorPage = (props) => {
   const Editor = loadable(() =>
@@ -26,6 +33,7 @@ const EditorPage = (props) => {
   const [description, setDescription] = useState(null);
   const [restore, setRestore] = useState(false);
   const url = useUrl("blogAPI");
+  const [backedUp, setBackedUp] = useState([]);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -81,10 +89,39 @@ const EditorPage = (props) => {
     };
   };
 
+  const handleRestore = (data) => {
+    setName(data.name);
+    setDescription(data.description);
+    if (data.topics) {
+      for (let index = 0; index < data.topics.length; index++) {
+        if (!data.topics[index - 1]) {
+          setTopics(data.topics[index]);
+        } else {
+          setTopics((prevTopics) => prevTopics + ", " + data.topics[index]);
+        }
+      }
+    }
+    if (data.imgURL) {
+      const separator = globalVars("separator");
+      const imgAndCredits = data.imgURL.split(separator);
+      setImgUrl(imgAndCredits[0]);
+      setImgCredits(imgAndCredits[1]);
+    }
+
+    const blocksFromHTML = convertFromHTML(data.post);
+    const { contentBlocks, entityMap } = blocksFromHTML;
+
+    let contentState = ContentState.createFromBlockArray(
+      contentBlocks,
+      entityMap
+    );
+
+    setEditorState(EditorState.createWithContent(contentState));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = pageResults();
-    console.log(JSON.stringify(data));
     setIsloading(true);
     fetch(url, {
       method: "POST",
@@ -148,15 +185,25 @@ const EditorPage = (props) => {
       )
       .join("");
 
-    console.log(localDataName, data);
     localStorage.setItem(localDataName, JSON.stringify(data));
+  };
+
+  const restoreFromLocalStorage = () => {
+    const backups = [];
+    for (let [key, value] of Object.entries(localStorage)) {
+      const data = JSON.parse(value);
+      data["_id"] = key;
+      if (data.post && data.publishDate) {
+        backups.push(data);
+      }
+    }
+    return backups;
   };
 
   useEffect(() => {
     bkpToLocalStorage();
-  }, [pageResults().post]);
+  }, [pageResults().post, pageResults().name, pageResults().description]);
 
-  
   return (
     <body
       css={css`
@@ -282,8 +329,71 @@ const EditorPage = (props) => {
           </div>
         </form>
       </main>
-      <aside>
-        
+      <aside
+        css={css`
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+        `}
+      >
+        {restore && (
+          <>
+            {backedUp.map((item) => (
+              <div key={item._id}>
+                <span>{item.name}</span>
+                <StaticImage
+                  src="delete.svg"
+                  alt="Click to delete"
+                  title="Delete"
+                  height={20}
+                  width={20}
+                  onClick={() => {
+                    localStorage.removeItem(item._id);
+                    setBackedUp(restoreFromLocalStorage());
+                  }}
+                  css={css`
+                    cursor: pointer;
+                    :hover {
+                      background-color: lightblue;
+                    }
+                  `}
+                />
+                <StaticImage
+                  src="check.svg"
+                  alt="Click to restore"
+                  title="Restore"
+                  height={20}
+                  width={20}
+                  css={css`
+                    cursor: pointer;
+                    :hover {
+                      background-color: lightblue;
+                    }
+                  `}
+                  onClick={() => handleRestore(item)}
+                />
+              </div>
+            ))}
+          </>
+        )}
+        <div>
+          <StaticImage
+            src="restore.svg"
+            alt="Click to Restore"
+            title="Restore Draft"
+            height={40}
+            width={40}
+            css={css`
+              /* background-color: skyblue; */
+              border-radius: 10px;
+              cursor: pointer;
+            `}
+            onClick={(e) => {
+              setBackedUp(restoreFromLocalStorage());
+              setRestore(!restore);
+            }}
+          />
+        </div>
       </aside>
     </body>
   );

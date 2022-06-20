@@ -66,6 +66,7 @@ export const Header = () => {
             role="button"
             onClick={handleHumburgerToggle}
             css={hamburgerMenu}
+            title="menu close or open"
           >
             {isMenuOpen ? (
               <StaticImage src="menu-close.svg" alt="close menu" />
