@@ -9,6 +9,7 @@ import * as styles from "./index.module.css";
 import { useUrl } from "../../../res/urls";
 import { protectedVars } from "../../../res/protectedVars";
 import { globalVars } from "../../../res/globalVars";
+import { HtmlSnippet } from "../../../components/editor/customHtml";
 
 const EditorPage = (props) => {
   const Editor = loadable(() =>
@@ -23,6 +24,7 @@ const EditorPage = (props) => {
   const [topics, setTopics] = useState(null);
   const [isloading, setIsloading] = useState(null);
   const [description, setDescription] = useState(null);
+  const [restore, setRestore] = useState(false);
   const url = useUrl("blogAPI");
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -145,21 +147,16 @@ const EditorPage = (props) => {
         ("00" + x.toString(16)).slice(-2)
       )
       .join("");
-    
+
     console.log(localDataName, data);
     localStorage.setItem(localDataName, JSON.stringify(data));
   };
 
   useEffect(() => {
-    // const interval = 5000;
-    // const executable = setInterval(() => {
-    //   bkpToLocalStorage();
-    // }, interval);
-
     bkpToLocalStorage();
-    // return () => clearInterval(executable);
   }, [pageResults().post]);
 
+  
   return (
     <body
       css={css`
@@ -169,7 +166,7 @@ const EditorPage = (props) => {
         color: white;
       `}
     >
-      <div
+      <main
         css={css`
           min-height: 100%;
           width: 80vw;
@@ -191,6 +188,7 @@ const EditorPage = (props) => {
               wrapperClassName={styles.wrapperClass}
               editorClassName={styles.editorClass}
               toolbarClassName={styles.toolbarClass}
+              // toolbarCustomButtons={[<HtmlSnippet />]}
               editorState={editorState}
               onEditorStateChange={setEditorState}
             />
@@ -220,6 +218,25 @@ const EditorPage = (props) => {
               required
               onChange={(e) => setTopics((prevTopics) => e.target.value)}
             />
+          </div>
+          <div
+            css={css`
+              display: flex;
+            `}
+          >
+            <textarea
+              name="description"
+              placeholder="Description *"
+              id=""
+              required
+              css={inputs}
+              cols="20"
+              rows="5"
+              value={description}
+              onChange={(e) =>
+                setDescription((prevDescription) => e.target.value)
+              }
+            ></textarea>
             <div
               css={css`
                 background-color: blue;
@@ -252,26 +269,6 @@ const EditorPage = (props) => {
           </div>
           <div
             css={css`
-              padding-right: 11px;
-              width: 50%;
-            `}
-          >
-            <textarea
-              name="description"
-              placeholder="Description *"
-              id=""
-              required
-              css={inputs}
-              cols="20"
-              rows="5"
-              value={description}
-              onChange={(e) =>
-                setDescription((prevDescription) => e.target.value)
-              }
-            ></textarea>
-          </div>
-          <div
-            css={css`
               bottom: 10%;
             `}
           >
@@ -284,8 +281,12 @@ const EditorPage = (props) => {
             )}
           </div>
         </form>
-      </div>
+      </main>
+      <aside>
+        
+      </aside>
     </body>
   );
 };
+
 export default EditorPage;
