@@ -35,9 +35,8 @@ const RoadMapPage = ({ location, data }) => {
               width: 50%;
               margin: 0 5rem;
             }
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", "Nunito",
-              sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, 
+              Cantarell, "Open Sans", "Helvetica Neue", "Nunito", Roboto, sans-serif;
           `}
         >
           <h1>{data.roadMaps.name}</h1>
