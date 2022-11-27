@@ -1,5 +1,5 @@
 const getUrl = (name) => {
-    const pbVictor = "https://pbvictor.herokuapp.com/api";
+    const pbVictor = "https://web-production-2b5d.up.railway.app/api";
     const pbVictorSubUrls = {
       contact: pbVictor + "/contact",
       blogAPI: pbVictor + "/lfv/blogs",
