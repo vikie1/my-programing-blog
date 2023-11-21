@@ -1,8 +1,8 @@
 const getUrl = (name) => {
-    const pbVictor = "https://web-production-2b5d.up.railway.app/api";
+    const pbVictor = "http://localhost:8080/api";
     const pbVictorSubUrls = {
       contact: pbVictor + "/contact",
-      blogAPI: pbVictor + "/lfv/blogs",
+      blogAPI: pbVictor + "/lfv/blogs/published",
       courseAPI: pbVictor + "/lfv/courses",
       roadMapsAPI: pbVictor + "/lfv/roadmaps"
     };
