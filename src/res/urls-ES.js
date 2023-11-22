@@ -2,7 +2,7 @@ const getUrl = (name) => {
     const pbVictor = "http://localhost:8080/api";
     const pbVictorSubUrls = {
       contact: pbVictor + "/contact",
-      blogAPI: pbVictor + "/lfv/blogs/published",
+      blogAPI: pbVictor + "/lfv/blogs",
       courseAPI: pbVictor + "/lfv/courses",
       roadMapsAPI: pbVictor + "/lfv/roadmaps"
     };
