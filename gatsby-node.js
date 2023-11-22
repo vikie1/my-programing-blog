@@ -7,7 +7,7 @@ exports.sourceNodes = async ({
   createContentDigest,
 }) => {
   // get data from API at build time
-  const blog = await fetch(getUrl("blogAPI"));
+  const blog = await fetch(getUrl("blogAPI") + "/published");
   const courses = await fetch(getUrl("courseAPI"));
   const roadMaps = await fetch(getUrl("roadMapsAPI"));
   const blogData = await blog.json();
