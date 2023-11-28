@@ -1,7 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
-import { Helmet } from "react-helmet";
-import { Adsense } from "./googleAd";
 
 export const Head = ({
   pageTitle,
