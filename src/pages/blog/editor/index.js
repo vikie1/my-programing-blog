@@ -7,14 +7,12 @@ import {
 } from "draft-js";
 import React, { useEffect, useState } from "react";
 import draftToHtml from "draftjs-to-html";
-// import { Editor } from "react-draft-wysiwyg"; //didn't work during gatsby build
 import loadable from "@loadable/component";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import * as styles from "./index.module.css";
 import { useUrl } from "../../../res/urls";
 import { protectedVars } from "../../../res/protectedVars";
 import { globalVars } from "../../../res/globalVars";
-import { HtmlSnippet } from "../../../components/editor/customHtml";
 import { StaticImage } from "gatsby-plugin-image";
 
 const EditorPage = (props) => {
@@ -341,42 +339,51 @@ const EditorPage = (props) => {
             {backedUp.map((item) => (
               <div key={item._id}>
                 <span>{item.name}</span>
-                <StaticImage
-                  src="delete.svg"
-                  alt="Click to delete"
-                  title="Delete"
-                  height={20}
-                  width={20}
+                <span
                   onClick={() => {
                     localStorage.removeItem(item._id);
                     setBackedUp(restoreFromLocalStorage());
                   }}
-                  css={css`
-                    cursor: pointer;
-                    :hover {
-                      background-color: lightblue;
-                    }
-                  `}
-                />
-                <StaticImage
-                  src="check.svg"
-                  alt="Click to restore"
-                  title="Restore"
-                  height={20}
-                  width={20}
-                  css={css`
-                    cursor: pointer;
-                    :hover {
-                      background-color: lightblue;
-                    }
-                  `}
-                  onClick={() => handleRestore(item)}
-                />
+                >
+                  <StaticImage
+                    src="delete.svg"
+                    alt="Click to delete"
+                    title="Delete"
+                    height={20}
+                    width={20}
+                    css={css`
+                      cursor: pointer;
+                      :hover {
+                        background-color: lightblue;
+                      }
+                    `}
+                  />
+                </span>
+                <span onClick={() => handleRestore(item)}>
+                  <StaticImage
+                    src="check.svg"
+                    alt="Click to restore"
+                    title="Restore"
+                    height={20}
+                    width={20}
+                    css={css`
+                      cursor: pointer;
+                      :hover {
+                        background-color: lightblue;
+                      }
+                    `}
+                  />
+                </span>
               </div>
             ))}
           </>
         )}
-        <div>
+        <div
+          onClick={(e) => {
+            setBackedUp(restoreFromLocalStorage());
+            setRestore(!restore);
+          }}
+        >
           <StaticImage
             src="restore.svg"
             alt="Click to Restore"
@@ -388,10 +395,6 @@ const EditorPage = (props) => {
               border-radius: 10px;
               cursor: pointer;
             `}
-            onClick={(e) => {
-              setBackedUp(restoreFromLocalStorage());
-              setRestore(!restore);
-            }}
           />
         </div>
       </aside>
