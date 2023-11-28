@@ -98,7 +98,7 @@ export const BlogList = ({ blog, data }) => {
               text-overflow: ellipsis;
             `}
           >
-            topics discussed:
+            tags:
             {blog.topics.map((topic, index) => (
               <>
                 {index > 0 ? "," : ""}

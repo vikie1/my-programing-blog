@@ -82,7 +82,7 @@ export const BlogCard = ({ blog, data }) => {
                 text-overflow: ellipsis;
               `}
             >
-              topics discussed:
+              tags:
               {blog.topics
                 ? blog.topics.map((topic, index) => (
                     <>
