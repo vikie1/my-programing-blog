@@ -326,42 +326,51 @@ const EditorPage = (props) => {
             {backedUp.map((item) => (
               <div key={item._id}>
                 <span>{item.name}</span>
-                <StaticImage
-                  src="delete.svg"
-                  alt="Click to delete"
-                  title="Delete"
-                  height={20}
-                  width={20}
+                <span
                   onClick={() => {
                     localStorage.removeItem(item._id);
                     setBackedUp(restoreFromLocalStorage());
                   }}
-                  css={css`
-                    cursor: pointer;
-                    :hover {
-                      background-color: lightblue;
-                    }
-                  `}
-                />
-                <StaticImage
-                  src="check.svg"
-                  alt="Click to restore"
-                  title="Restore"
-                  height={20}
-                  width={20}
-                  css={css`
-                    cursor: pointer;
-                    :hover {
-                      background-color: lightblue;
-                    }
-                  `}
-                  onClick={() => handleRestore(item)}
-                />
+                >
+                  <StaticImage
+                    src="delete.svg"
+                    alt="Click to delete"
+                    title="Delete"
+                    height={20}
+                    width={20}
+                    css={css`
+                      cursor: pointer;
+                      :hover {
+                        background-color: lightblue;
+                      }
+                    `}
+                  />
+                </span>
+                <span onClick={() => handleRestore(item)}>
+                  <StaticImage
+                    src="check.svg"
+                    alt="Click to restore"
+                    title="Restore"
+                    height={20}
+                    width={20}
+                    css={css`
+                      cursor: pointer;
+                      :hover {
+                        background-color: lightblue;
+                      }
+                    `}
+                  />
+                </span>
               </div>
             ))}
           </>
         )}
-        <div>
+        <div
+          onClick={(e) => {
+            setBackedUp(restoreFromLocalStorage());
+            setRestore(!restore);
+          }}
+        >
           <StaticImage
             src="restore.svg"
             alt="Click to Restore"
@@ -373,10 +382,6 @@ const EditorPage = (props) => {
               border-radius: 10px;
               cursor: pointer;
             `}
-            onClick={(e) => {
-              setBackedUp(restoreFromLocalStorage());
-              setRestore(!restore);
-            }}
           />
         </div>
       </aside>
