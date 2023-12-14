@@ -39,7 +39,7 @@ export const BlogCard = ({ blog, data }) => {
       >
         <span>
           <img
-            src={image + "?348x200&fm=webp"}
+            src={image + "?w=348&h=200&fm=webp"}
             loading="lazy"
             alt="Blogs preview"
             width={348}

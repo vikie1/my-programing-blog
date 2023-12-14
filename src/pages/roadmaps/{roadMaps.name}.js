@@ -12,7 +12,7 @@ const RoadMapPage = ({ location, data }) => {
       <Head
         pageTitle={data.roadMaps.name}
         siteLocation={location.pathname}
-        siteImage={data.roadMaps.img}
+        siteImage={data.roadMaps.img + "?w=174&h=100&fm=webp"}
         description={data.roadMaps.desc}
         pageType={"article"}
       />
@@ -57,7 +57,7 @@ const RoadMapPage = ({ location, data }) => {
             </span>
           </div>
           <img
-            src={data.roadMaps.img}
+            src={data.roadMaps.img  + "?fm=webp"}
             css={css`
               max-width: 100%;
             `}

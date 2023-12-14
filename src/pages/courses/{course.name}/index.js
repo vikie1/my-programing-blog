@@ -23,7 +23,7 @@ const Course = ({ location, data }) => {
       <Head
         pageTitle={data.course.name}
         description={data.course.desc}
-        siteImage={image + "?174x100&fm=webp"}
+        siteImage={image + "?w=174&h=100&fm=webp"}
         siteLocation={location.pathname}
         pageType={"article"}
       />

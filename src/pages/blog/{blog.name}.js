@@ -19,7 +19,7 @@ const BlogPost = ({ location, data }) => {
         pageTitle={data.blog.name}
         description={data.blog.desc}
         pageType={"article"}
-        siteImage={image + "?174x100&fm=webp"}
+        siteImage={image + "?w=174&h=100&fm=webp"}
         siteLocation={location.pathname}
       />
       <Header />

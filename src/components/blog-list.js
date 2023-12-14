@@ -47,7 +47,7 @@ export const BlogList = ({ blog, data }) => {
       >
         <span>
           <img
-            src={image+ "?70x70&fm=webp"}
+            src={image+ "?h=70&w=70&fm=webp"}
             loading="lazy"
             alt="Blogs preview"
             width={70}
