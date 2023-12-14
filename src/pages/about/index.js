@@ -201,9 +201,7 @@ const AboutPage = () => {
               </p>
               <p>
                 I started this website so you or someone else wouldn't have to
-                struggle to be a developer. Also it's worth noting that my mum
-                is a teacher but unlike me, she is lucky enough to see and
-                interact with her students.
+                struggle to be a developer.
               </p>
             </div>
           </div>
