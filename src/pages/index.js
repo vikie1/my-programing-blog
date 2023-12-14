@@ -4,10 +4,7 @@ import { Footer } from "../components/footer/footer";
 import { Header } from "../components/header/header";
 import { Head } from "../components/headSection";
 import { LandingPage } from "../components/landing/landing_page";
-
-import blog from "../images/programming-svgrepo-com2.svg";
-import roadmap from "../images/student-struggle-svgrepo-com.svg";
-import courses from "../images/teacher-svgrepo-com.svg";
+import { StaticImage } from "gatsby-plugin-image";
 
 const IndexPage = () => {
   return (
@@ -51,7 +48,7 @@ const IndexPage = () => {
               }
             `}
           >
-            <img src={courses} alt="" width={80} height={80} />
+            <StaticImage src='../images/teacher-svgrepo-com.svg' width={80} height={80} />
             <p
               css={css`
                 text-align: center;
@@ -72,7 +69,7 @@ const IndexPage = () => {
               }
             `}
           >
-            <img src={roadmap} alt="" width={80} height={80} />
+            <StaticImage src='../images/student-struggle-svgrepo-com.svg' width={80} height={80} />
             <p
               css={css`
                 text-align: center;
@@ -93,7 +90,7 @@ const IndexPage = () => {
               }
             `}
           >
-            <img src={blog} alt="" width={80} height={80} />
+            <StaticImage src="../images/programming-svgrepo-com2.svg" width={80} height={80} />
             <p
               css={css`
                 text-align: center;
