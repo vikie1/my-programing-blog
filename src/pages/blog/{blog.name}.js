@@ -14,13 +14,29 @@ const BlogPost = ({ location, data }) => {
   const credits = imgAndCredits[1];
 
   const ref = useRef(null);
-  const [blogHeroImageWidth, setBlogHeroImageWidth] = useState(0);
   const [heroImage, setHeroImage] = useState(null);
 
   useLayoutEffect(() => {
-    setBlogHeroImageWidth(ref.current.offsetWidth);
-    setHeroImage(image + "?w="+ ref.current.offsetWidth + "&fm=webp")
-  }, []);
+    setHeroImage(image + "?w=" + ref.current.offsetWidth + "&fm=webp");
+  });
+
+  const relatedBlogs = () => {
+    const related = [];
+    for (const item in data.blog.topics) {
+      for (let key = 0; key < data.allBlog.nodes.length; key++) {
+        const blogOther = data.allBlog.nodes[key];
+        for (let index = 0; index < blogOther.topics.length; index++) {
+          if (blogOther.topics[index].id === data.blog.topics[item].id) {
+            related.push(blogOther);
+          }
+        }
+      }
+    }
+    return related.filter(
+      (item, index) =>
+        related.indexOf(item) === index && item.id !== data.blog.id
+    );
+  };
 
   return (
     <div>
@@ -50,8 +66,8 @@ const BlogPost = ({ location, data }) => {
               width: 50%;
               margin: 0 5rem;
             }
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, 
-              Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", 'Nunito', Roboto,
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
+              Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", "Nunito", Roboto,
               sans-serif;
           `}
           ref={ref}
@@ -118,28 +134,20 @@ const BlogPost = ({ location, data }) => {
               Related:{" "}
             </h2>
           </div>
-          {data.allBlog.nodes
-            .filter((related) => {
-              return related.topics.some((topic) => {
-                for (const key in data.blog.topics) {
-                  return data.blog.topics[key].id === topic.id;
-                }
-              });
-            })
-            .slice(0, 5)
-            .map((blog) => (
-              <div
-                css={css`
-                  margin-top: 1rem;
-                  margin-right: 2rem;
-                `}
-              >
-                {/*to negate this, currently needed only for layout */}
-                {blog.id !== data.blog.id && (
-                  <BlogList blog={blog} data={data} />
-                )}
-              </div>
-            ))}
+          {
+            <>
+              {relatedBlogs().map((related) => (
+                <div
+                  css={css`
+                    margin-top: 1rem;
+                    margin-right: 2rem;
+                  `}
+                >
+                  <BlogList blog={related} data={data} />
+                </div>
+              ))}
+            </>
+          }
         </div>
       </div>
       <Footer />
