@@ -12,7 +12,7 @@ const RoadMapPage = ({ location, data }) => {
       <Head
         pageTitle={data.roadMaps.name}
         siteLocation={location.pathname}
-        siteImage={data.roadMaps.img + "?w=174&h=100&fm=webp"}
+        siteImage={data.roadMaps.img + "?w=348&h=200&fm=webp"}
         description={data.roadMaps.desc}
         pageType={"article"}
       />

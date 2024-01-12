@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { graphql } from "gatsby";
-import React, { useState } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
@@ -8,18 +8,27 @@ import { Head } from "../../components/headSection";
 import { globalVars } from "../../res/globalVars";
 
 const BlogPost = ({ location, data }) => {
-  const [related, setRelated] = useState(false);
   const separator = globalVars("separator");
   const imgAndCredits = data.blog.img.split(separator);
   const image = imgAndCredits[0];
   const credits = imgAndCredits[1];
+
+  const ref = useRef(null);
+  const [blogHeroImageWidth, setBlogHeroImageWidth] = useState(0);
+  const [heroImage, setHeroImage] = useState(null);
+
+  useLayoutEffect(() => {
+    setBlogHeroImageWidth(ref.current.offsetWidth);
+    setHeroImage(image + "?w="+ ref.current.offsetWidth + "&fm=webp")
+  }, []);
+
   return (
     <div>
       <Head
         pageTitle={data.blog.name}
         description={data.blog.desc}
         pageType={"article"}
-        siteImage={image + "?w=174&h=100&fm=webp"}
+        siteImage={image + "?w=348&h=200&fm=webp"}
         siteLocation={location.pathname}
       />
       <Header />
@@ -45,6 +54,7 @@ const BlogPost = ({ location, data }) => {
               Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", 'Nunito', Roboto,
               sans-serif;
           `}
+          ref={ref}
         >
           <h1>{data.blog.name}</h1>
           <div
@@ -64,7 +74,7 @@ const BlogPost = ({ location, data }) => {
             </span>
           </div>
           <img
-            src={image + "?fm=webp"}
+            src={heroImage}
             css={css`
               max-width: 100%;
             `}
