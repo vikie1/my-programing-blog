@@ -3,8 +3,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import { BlogCard } from "../../components/blog-card";
 import { Header } from "../../components/header/header";
-import { Head } from "../../components/headSection";
-
+import { Seo } from "../../components/headSection";
 const ArticlesPage = (props) => {
   const data = useStaticQuery(graphql`
     query {
@@ -30,14 +29,20 @@ const ArticlesPage = (props) => {
   `);
   return (
     <main>
-      <Head
-        pageTitle="Read Blog Articles"
-        description={
-          "Access blogs discussing important aspects of tech that will help bolster your knowledge and cultivate best practices."
-        }
-        siteLocation={"/blog/"}
-      />
       <Header />
+      <h1
+          css={css`
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+              sans-serif;
+            font-weight: 500;
+            font-size: 3.05733em;
+            line-height: 1;
+            text-align: center;
+          `}
+        >
+          Blog Articles
+        </h1>
       <div
         css={css`
           display: flex;
@@ -69,3 +74,13 @@ const ArticlesPage = (props) => {
 };
 
 export default ArticlesPage;
+
+export const Head = () => (
+  <Seo
+    pageTitle="Read Blog Articles"
+    description={
+      "Access blogs discussing important aspects of tech that will help bolster your knowledge and cultivate best practices."
+    }
+    siteLocation={"/blog/"}
+  />
+);

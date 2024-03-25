@@ -2,10 +2,10 @@ import { css } from "@emotion/react";
 import { graphql, Link } from "gatsby";
 import React from "react";
 import { Header } from "../../../components/header/header";
-import { Head } from "../../../components/headSection";
 import { globalVars } from "../../../res/globalVars";
+import { Seo } from "../../../components/headSection";
 
-const Course = ({ location, data }) => {
+const Course = ({ data }) => {
   const getBlogUrl = (id) => {
     const blogUrl = data.allSitePage.nodes.find((blog) => {
       if (blog.pageContext.id) {
@@ -15,18 +15,8 @@ const Course = ({ location, data }) => {
     return blogUrl.path;
   };
 
-  const separator = globalVars("separator");
-  const imgAndCredits = data.course.img.split(separator);
-  const image = imgAndCredits[0];
   return (
     <div>
-      <Head
-        pageTitle={data.course.name}
-        description={data.course.desc}
-        siteImage={image + "?w=348&h=200&fm=webp"}
-        siteLocation={location.pathname}
-        pageType={"article"}
-      />
       <Header />
       <main
         css={css`
@@ -58,7 +48,9 @@ const Course = ({ location, data }) => {
     </div>
   );
 };
+
 export default Course;
+
 export const query = graphql`
   query ($id: String) {
     course(id: { eq: $id }) {
@@ -79,3 +71,19 @@ export const query = graphql`
     }
   }
 `;
+
+export const Head = ({ location, data }) => {
+  const separator = globalVars("separator");
+  const imgAndCredits = data.course.img.split(separator);
+  const image = imgAndCredits[0];
+
+  return (
+    <Seo
+      pageTitle={data.course.name}
+      description={data.course.desc}
+      siteImage={image + "?w=348&h=200&fm=webp"}
+      siteLocation={location.pathname}
+      pageType={"article"}
+    />
+  );
+};

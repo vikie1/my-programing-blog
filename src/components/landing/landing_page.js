@@ -104,7 +104,7 @@ export const LandingPage = ({ children }) => {
             developer.
           </p>
           <Link
-            to="/courses"
+            to="/blog"
             css={css`
               text-decoration: none;
               color: white;

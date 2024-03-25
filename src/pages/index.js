@@ -2,9 +2,9 @@ import { css } from "@emotion/react";
 import * as React from "react";
 import { Footer } from "../components/footer/footer";
 import { Header } from "../components/header/header";
-import { Head } from "../components/headSection";
 import { LandingPage } from "../components/landing/landing_page";
 import { StaticImage } from "gatsby-plugin-image";
+import { Seo } from "../components/headSection";
 
 const IndexPage = () => {
   return (
@@ -14,7 +14,6 @@ const IndexPage = () => {
         padding: 0;
       `}
     >
-      <Head pageTitle="Home Page" siteLocation={"/"} />
       <Header />
       <LandingPage>
         <div
@@ -43,12 +42,16 @@ const IndexPage = () => {
               display: flex;
               flex-direction: column;
               align-items: center;
-              @media (max-width:768px) {
+              @media (max-width: 768px) {
                 padding: 0 1rem;
               }
             `}
           >
-            <StaticImage src='../images/teacher-svgrepo-com.svg' width={80} height={80} />
+            <StaticImage
+              src="../images/teacher-svgrepo-com.svg"
+              width={80}
+              height={80}
+            />
             <p
               css={css`
                 text-align: center;
@@ -69,7 +72,11 @@ const IndexPage = () => {
               }
             `}
           >
-            <StaticImage src='../images/student-struggle-svgrepo-com.svg' width={80} height={80} />
+            <StaticImage
+              src="../images/student-struggle-svgrepo-com.svg"
+              width={80}
+              height={80}
+            />
             <p
               css={css`
                 text-align: center;
@@ -90,7 +97,11 @@ const IndexPage = () => {
               }
             `}
           >
-            <StaticImage src="../images/programming-svgrepo-com2.svg" width={80} height={80} />
+            <StaticImage
+              src="../images/programming-svgrepo-com2.svg"
+              width={80}
+              height={80}
+            />
             <p
               css={css`
                 text-align: center;
@@ -108,3 +119,5 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+
+export const Head = () => <Seo pageTitle="Home Page" siteLocation={"/"} />;

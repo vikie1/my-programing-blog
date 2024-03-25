@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 
-export const Head = ({
+export const Seo = ({
   pageTitle,
   description,
   siteLocation,
@@ -22,7 +22,6 @@ export const Head = ({
     "https://res.cloudinary.com/victor-portfolio/image/upload/v1649851633/gatsby-icon_afracv.png";
   return (
     <>
-      {/* <html lang="en" /> */}
       <title>
         {pageTitle} | {siteMetadata.site.siteMetadata.title}
       </title>

@@ -4,10 +4,10 @@ import React, { useRef, useState, useLayoutEffect } from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
-import { Head } from "../../components/headSection";
 import { globalVars } from "../../res/globalVars";
+import { Seo } from "../../components/headSection";
 
-const BlogPost = ({ location, data }) => {
+const BlogPost = ({ data }) => {
   const separator = globalVars("separator");
   const imgAndCredits = data.blog.img.split(separator);
   const image = imgAndCredits[0];
@@ -40,13 +40,6 @@ const BlogPost = ({ location, data }) => {
 
   return (
     <div>
-      <Head
-        pageTitle={data.blog.name}
-        description={data.blog.desc}
-        pageType={"article"}
-        siteImage={image + "?w=348&h=200&fm=webp"}
-        siteLocation={location.pathname}
-      />
       <Header />
       <div
         css={css`
@@ -190,3 +183,18 @@ export const query = graphql`
     }
   }
 `;
+
+export const Head = ({ location, data }) => {
+  const separator = globalVars("separator");
+  const imgAndCredits = data.blog.img.split(separator);
+  const image = imgAndCredits[0];
+  return (
+    <Seo
+      pageTitle={data.blog.name}
+      description={data.blog.desc}
+      pageType={"article"}
+      siteImage={image + "?w=348&h=200&fm=webp"}
+      siteLocation={location.pathname}
+    />
+  );
+};

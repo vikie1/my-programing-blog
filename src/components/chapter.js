@@ -4,10 +4,9 @@ import React from "react";
 import { globalVars } from "../res/globalVars";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
-import { Head } from "./headSection";
+import { Seo } from "./headSection";
 
-const Chapters = (props, { location }) => {
-  console.log(props, location)
+const Chapters = (props) => {
   const data = props.pageContext.data;
   const pages = useStaticQuery(graphql`
     query {
@@ -27,18 +26,8 @@ const Chapters = (props, { location }) => {
     });
     return resource.path;
   };
-  const separator = globalVars("separator");
-  const imgAndCredits = data.img.split(separator);
-  const image = imgAndCredits[0];
   return (
     <div>
-      <Head
-        pageTitle={data.chapter}
-        description={data.chapter}
-        siteLocation={props.path}
-        pageType={"article"}
-        siteImage={image + "?174x100&fm=webp"}
-      />
       <Header />
       <div
         css={css`
@@ -58,8 +47,8 @@ const Chapters = (props, { location }) => {
               width: 50%;
               margin: 0 5rem;
             }
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, 
-              Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", 'Nunito', Roboto,
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
+              Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", "Nunito", Roboto,
               sans-serif;
           `}
         >
@@ -110,3 +99,21 @@ const Chapters = (props, { location }) => {
   );
 };
 export default Chapters;
+
+export const Head = (props) => {
+  console.log(props);
+  const data = props.pageContext.data;
+  const separator = globalVars("separator");
+  const imgAndCredits = data.img.split(separator);
+  const image = imgAndCredits[0];
+
+  return (
+    <Seo
+      pageTitle={data.chapter}
+      description={data.chapter}
+      siteLocation={props.location.pathname}
+      pageType={"article"}
+      siteImage={image + "?174x100&fm=webp"}
+    />
+  );
+};

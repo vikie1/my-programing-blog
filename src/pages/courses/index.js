@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { Header } from "../../components/header/header";
-import { Head } from "../../components/headSection";
 import { ListCourses } from "../../components/list-courses";
 import { ListRoadMaps } from "../../components/list-roadmaps";
+import { Seo } from "../../components/headSection";
 
 const CoursesPage = () => {
   // switch between roadMaps and Courses
@@ -32,13 +32,6 @@ const CoursesPage = () => {
   `;
   return (
     <main>
-      <Head
-        pageTitle="Availabe Courses"
-        siteLocation={"/blog/"}
-        description={
-          "Equip yourself with skills that will definitely land you a job in tech."
-        }
-      />
       <Header />
       <div
         css={css`
@@ -100,3 +93,13 @@ const CoursesPage = () => {
   );
 };
 export default CoursesPage;
+
+export const Head = () => (
+  <Seo
+    pageTitle="Availabe Courses"
+    siteLocation={"/blog/"}
+    description={
+      "Equip yourself with skills that will definitely land you a job in tech."
+    }
+  />
+);

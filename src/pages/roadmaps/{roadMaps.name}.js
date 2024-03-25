@@ -4,18 +4,11 @@ import React from "react";
 import { BlogList } from "../../components/blog-list";
 import { Footer } from "../../components/footer/footer";
 import { Header } from "../../components/header/header";
-import { Head } from "../../components/headSection";
+import { Seo } from "../../components/headSection";
 
-const RoadMapPage = ({ location, data }) => {
+const RoadMapPage = ({ data }) => {
   return (
     <div>
-      <Head
-        pageTitle={data.roadMaps.name}
-        siteLocation={location.pathname}
-        siteImage={data.roadMaps.img + "?w=348&h=200&fm=webp"}
-        description={data.roadMaps.desc}
-        pageType={"article"}
-      />
       <Header />
       <div
         css={css`
@@ -35,8 +28,9 @@ const RoadMapPage = ({ location, data }) => {
               width: 50%;
               margin: 0 5rem;
             }
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, 
-              Cantarell, "Open Sans", "Helvetica Neue", "Nunito", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
+              Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", "Nunito", Roboto,
+              sans-serif;
           `}
         >
           <h1>{data.roadMaps.name}</h1>
@@ -57,7 +51,7 @@ const RoadMapPage = ({ location, data }) => {
             </span>
           </div>
           <img
-            src={data.roadMaps.img  + "?fm=webp"}
+            src={data.roadMaps.img + "?fm=webp"}
             css={css`
               max-width: 100%;
             `}
@@ -143,3 +137,15 @@ export const query = graphql`
     }
   }
 `;
+
+export const Head = ({ location, data }) => {
+  return (
+    <Seo
+      pageTitle={data.roadMaps.name}
+      siteLocation={location.pathname}
+      siteImage={data.roadMaps.img + "?w=348&h=200&fm=webp"}
+      description={data.roadMaps.desc}
+      pageType={"article"}
+    />
+  );
+};
